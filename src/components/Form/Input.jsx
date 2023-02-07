@@ -1,8 +1,8 @@
 import React from "react";
 
-function Input({ htmlFor, className, children, ...props }) {
+function Input({ htmlFor, className, children, divClassName, ...props }) {
     return (
-        <div>
+        <div className={divClassName}>
             <label className="mr-2 block text-sm font-bold" htmlFor={htmlFor}>
                 {children}
             </label>

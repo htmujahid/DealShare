@@ -59,7 +59,7 @@ function CustomerSearchBar() {
                     </button>
                 </form>
                 <div className="flex gap-6 items-center">
-                    <Link href="/">
+                    <Link href="/account">
                         <span className="material-symbols-outlined">
                             person
                         </span>
