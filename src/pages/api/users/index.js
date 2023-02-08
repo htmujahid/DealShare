@@ -1,7 +1,7 @@
 import { addUser, getUserByEmail } from "@/lib/api/db";
 import { database } from "@/lib/api/middleware";
+import { isEmail } from "@/lib/app/user";
 import { createRouter } from "next-connect";
-import isEmail from "validator/lib/isemail";
 
 const router = createRouter();
 
