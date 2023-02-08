@@ -18,14 +18,14 @@ export function dbProjectionUsers(prefix = "") {
 export async function addUser(user) {
   let password = await bcrypt.hash(user.password, 10);
 
-  const user = {
+  const newUser = {
     ...user,
     password,
     createdAt: new Date(),
     modifiedAt: new Date(),
   };
 
-  const { insertedId } = await db.collection("users").insertOne(user);
+  const { insertedId } = await db.collection("users").insertOne(newUser);
 
   return insertedId;
 }
