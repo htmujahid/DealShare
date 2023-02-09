@@ -1,21 +1,22 @@
 import { ProductDetailedCard } from "@/components/Card";
-import { CustomerContainer } from "@/components/Layouts/Container";
 import React from "react";
 import { CategoryFilters } from "../Common";
 
-function CategoryGridView() {
-    return (
-        <div className="flex justify-start min-w-[1280px] mb-16">
-            <CategoryFilters />
-            <div className="flex flex-wrap gap-8">
-                {Array(60)
-                    .fill(0)
-                    .map((_, i) => (
-                        <ProductDetailedCard key={i} />
-                    ))}
-            </div>
-        </div>
-    );
+function CategoryGridView({ products }) {
+  return (
+    <div className="flex justify-start min-w-[1280px] mb-16">
+      <CategoryFilters />
+      <div className="flex flex-wrap gap-8">
+        {products?.length > 0 ? (
+          products.map((product) => (
+            <ProductDetailedCard key={product._id} product={product} />
+          ))
+        ) : (
+          <>No Products of the selected category</>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default CategoryGridView;

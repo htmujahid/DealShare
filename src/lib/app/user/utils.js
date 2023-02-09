@@ -12,3 +12,7 @@ export const verifyPassword = async (plainPassword, hashedPassword) => {
 export const isEmail = (email) => {
   return email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 };
+
+export const getFullName = (firstName, lastName) => {
+  return firstName + " " + lastName;
+};
