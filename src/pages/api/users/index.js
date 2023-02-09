@@ -1,5 +1,6 @@
 import { addUser, getUserByEmail } from "@/lib/api/db";
 import { database } from "@/lib/api/middleware";
+import { ncRouteHandlerOpts } from "@/lib/api/nc";
 import { isEmail } from "@/lib/app/user";
 import { createRouter } from "next-connect";
 
@@ -45,6 +46,9 @@ router.post(async (req, res) => {
 
     return res.json({ id: userId });
   } catch (e) {
+    console.log(e);
     return res.status(500).end();
   }
 });
+
+export default router.handler(ncRouteHandlerOpts);
