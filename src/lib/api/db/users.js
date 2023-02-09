@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { ObjectId } from "mongodb";
 import { db } from "../middleware";
 
 export async function getUserByEmail(email) {
@@ -15,6 +16,34 @@ export function dbProjectionUsers(prefix = "") {
   };
 }
 
+export async function getUser(id) {
+  return await db.collection("users").findOne({
+    _id: new ObjectId(id),
+  });
+}
+
+export async function getCurrentUser(id) {
+  return await db.collection("users").findOne(
+    {
+      _id: new ObjectId(id),
+    },
+    { projection: dbProjectionUsers() }
+  );
+}
+
+export async function updatePassword(id, password) {
+  const newPassword = await bcrypt.hash(password, 10);
+
+  const { matchedCount } = await db.collection("users").updateOne(
+    {
+      _id: new ObjectId(id),
+    },
+    { $set: { password: newPassword } }
+  );
+
+  return matchedCount;
+}
+
 export async function addUser(user) {
   let password = await bcrypt.hash(user.password, 10);
 
@@ -28,6 +57,16 @@ export async function addUser(user) {
   const { insertedId } = await db.collection("users").insertOne(newUser);
 
   return insertedId;
+}
+
+export async function editUser(id, updatedData) {
+  const updatedUser = { ...updatedData, modifiedAt: new Date() };
+
+  const { matchedCount } = await db
+    .collection("users")
+    .updateOne({ _id: new ObjectId(id) }, { $set: updatedUser });
+
+  return matchedCount;
 }
 
 export async function addSuperAdmin() {

@@ -13,12 +13,13 @@
     "ajv": "^8.12.0",
     "bcryptjs": "^2.4.3",
     "mongodb": "^5.0.0",
-		"next": "^13.1.6",
+    "next": "^13.1.6",
     "next-auth": "^4.19.2",
-		"next-connect": "^1.0.0-next.3",
+    "next-connect": "^1.0.0-next.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hot-toast": "^2.4.0"
+    "react-hot-toast": "^2.4.0",
+    "swr": "^2.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

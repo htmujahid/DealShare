@@ -27,7 +27,6 @@ function Signup() {
       toast.success("User created successfully.");
       setLoading(false);
     } catch (e) {
-      console.log(e);
       setLoading(false);
       toast.error(e.message);
     }

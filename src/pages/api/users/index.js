@@ -1,16 +1,25 @@
-import { addUser, getUserByEmail } from "@/lib/api/db";
-import { database } from "@/lib/api/middleware";
+import {
+  addUser,
+  getCurrentUser,
+  updatePassword,
+  getUserByEmail,
+  getUser,
+} from "@/lib/api/db";
+import { database, tokenChecker } from "@/lib/api/middleware";
 import { ncRouteHandlerOpts } from "@/lib/api/nc";
 import { isEmail } from "@/lib/app/user";
+import { verifyPassword } from "@/lib/app/user";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
 
 router.use(database);
 
-//get all users
-router.get(async (req, res) => {
+//get current user
+router.use(tokenChecker).get(async (req, res) => {
   try {
+    const user = await getCurrentUser(req.user._id);
+    return res.status(200).json(user);
   } catch (e) {
     return res.status(500).end();
   }
@@ -46,8 +55,33 @@ router.post(async (req, res) => {
 
     return res.json({ id: userId });
   } catch (e) {
-    console.log(e);
     return res.status(500).end();
+  }
+});
+
+//update user password
+router.use(tokenChecker).put(async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const user = await getUser(req.user._id);
+    if (!(await verifyPassword(currentPassword, user.password))) {
+      console.log("HERE");
+      return res.status(403).json({
+        error: { message: "The current password is incorrect." },
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(403).json({
+        error: { message: "The passwords do not match." },
+      });
+    }
+
+    await updatePassword(req.user._id, newPassword);
+
+    return res.status(200).end();
+  } catch (e) {
+    return res.status(500).json({ error: { message: e.message } });
   }
 });
 
