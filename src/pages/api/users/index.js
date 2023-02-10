@@ -15,16 +15,6 @@ const router = createRouter();
 
 router.use(database);
 
-//get current user
-router.use(tokenChecker).get(async (req, res) => {
-  try {
-    const user = await getCurrentUser(req.user._id);
-    return res.status(200).json(user);
-  } catch (e) {
-    return res.status(500).end();
-  }
-});
-
 //Add a new user
 router.post(async (req, res) => {
   try {
@@ -54,6 +44,16 @@ router.post(async (req, res) => {
     });
 
     return res.json({ id: userId });
+  } catch (e) {
+    return res.status(500).end();
+  }
+});
+
+//get current user
+router.use(tokenChecker).get(async (req, res) => {
+  try {
+    const user = await getCurrentUser(req.user._id);
+    return res.status(200).json(user);
   } catch (e) {
     return res.status(500).end();
   }
