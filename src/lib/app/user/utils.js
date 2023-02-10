@@ -16,3 +16,9 @@ export const isEmail = (email) => {
 export const getFullName = (firstName, lastName) => {
   return firstName + " " + lastName;
 };
+
+export const userRoles = {
+  ADMIN: "admin",
+  CUSTOMER: "customer",
+  MANUFACTURER: "manufacturer",
+};

@@ -19,6 +19,9 @@ function ResetPassword() {
         confirmPassword: confirmPasswordRef.current.value,
       });
       setLoading(false);
+      currentPasswordRef.current.value = "";
+      newPasswordRef.current.value = "";
+      confirmPasswordRef.current.value = "";
       toast.success("Password updated successfully.");
     } catch (e) {
       setLoading(false);
