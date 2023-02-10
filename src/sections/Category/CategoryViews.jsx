@@ -15,7 +15,7 @@ function CategoryViews() {
   const [view, setView] = React.useState("grid");
   return (
     <CustomerContainer>
-      <div className="flex justify-between items-center pb-16">
+      <div className="flex justify-between items-center my-16">
         <h3 className="text-4xl font-bold">
           {stringToTitleCase(router.query.category)}
         </h3>

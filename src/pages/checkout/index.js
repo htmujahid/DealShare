@@ -7,7 +7,7 @@ function index() {
   return (
     <CustomerLayout>
       <CustomerContainer>
-        <div className="flex gap-8 my-4 mb-16">
+        <div className="flex gap-8 my-4 my-16">
           <BillingInfo />
           <OrderSummary />
         </div>
