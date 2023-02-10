@@ -14,17 +14,15 @@ function ProductCard({ product }) {
           />
         </div>
         <div className="pt-4">
-          <h3 className="font-bold text-lg">{product?.name}</h3>
-          <p className="text-sm pb-2">{product?.description}</p>
-
+          <h3 className="font-bold text-lg h-8 overflow-hidden">
+            {product?.name}
+          </h3>
+          <p className="text-sm pb-2 h-[63px] overflow-hidden">
+            {product?.description}
+          </p>
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-primary-dark text-lg font-bold">
-                ${product?.price}
-              </p>
-              <p className="font-semibold text-gray-400 line-through">
-                ${parseInt(product?.price) + 75}
-              </p>
+              <p className="text-lg font-bold">${product?.price}</p>
             </div>
             <Button
               type="primary"

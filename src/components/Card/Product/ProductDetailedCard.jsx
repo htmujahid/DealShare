@@ -19,7 +19,7 @@ function ProductDetailedCard({ product }) {
       <div className="py-8 flex-1">
         <h3 className="font-bold text-lg pb-1">{product?.name}</h3>
         <p className="text-sm pb-2">{product?.description}</p>
-        {feedbacks.length > 0 && (
+        {feedbacks?.length > 0 && (
           <ProductReview rating={calculateAverageRating(feedbacks)} />
         )}
         <div className="pt-3 text-gray-500 text-sm">
