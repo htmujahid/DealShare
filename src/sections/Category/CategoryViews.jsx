@@ -12,7 +12,7 @@ function CategoryViews() {
     60
   );
 
-  const [view, setView] = React.useState("list");
+  const [view, setView] = React.useState("grid");
   return (
     <CustomerContainer>
       <div className="flex justify-between items-center pb-16">
@@ -21,24 +21,24 @@ function CategoryViews() {
         </h3>
         <div className="flex gap-6">
           <button
-            className={`${view == "list" ? "text-primary-dark" : null} flex `}
-            onClick={() => setView("list")}
-          >
-            <span className="material-symbols-outlined pr-2">table_rows</span>
-            List View
-          </button>
-          <button
             className={`${view == "grid" ? "text-primary-dark" : null} flex`}
             onClick={() => setView("grid")}
           >
             <span className="material-symbols-outlined pr-2">window</span>
             Grid View
           </button>
+          <button
+            className={`${view == "list" ? "text-primary-dark" : null} flex `}
+            onClick={() => setView("list")}
+          >
+            <span className="material-symbols-outlined pr-2">table_rows</span>
+            List View
+          </button>
         </div>
       </div>
       <>
-        {view == "list" && <CategoryListView products={products} />}
         {view == "grid" && <CategoryGridView products={products} />}
+        {view == "list" && <CategoryListView products={products} />}
       </>
     </CustomerContainer>
   );

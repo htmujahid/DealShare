@@ -4,7 +4,6 @@ import {
   ProductDetailedDescription,
   RelatedProducts,
 } from "@/sections/Product";
-import { Breadcrumb } from "@/sections/Common";
 import { useProduct, useRelatedProducts } from "@/lib/app/product";
 import { useRouter } from "next/router";
 
@@ -14,7 +13,6 @@ function index() {
   const { products } = useRelatedProducts(product?._id, product?.category, 5);
   return (
     <CustomerLayout>
-      <Breadcrumb />
       <ProductDetailedDescription product={product} />
       <RelatedProducts products={products} />
     </CustomerLayout>

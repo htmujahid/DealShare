@@ -11,7 +11,7 @@ export default function Home() {
     <CustomerLayout>
       <ProductsGrid products={products} />
       <Reviews />
-      <ProductCategory />
+      <ProductCategory products={products} />
       <CategoryTags />
     </CustomerLayout>
   );
