@@ -1,53 +1,52 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from "@/components/Table";
 import React from "react";
 
 function Orders() {
-    return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left text-gray-500">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Product name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Color
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Category
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Qty
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            <span className="sr-only">Edit</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Array(10)
-                        .fill(0)
-                        .map((_, index) => (
-                            <tr className="bg-white border-b hover:bg-gray-50">
-                                <th
-                                    scope="row"
-                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                                >
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td className="px-6 py-4">Sliver</td>
-                                <td className="px-6 py-4">Laptop</td>
-                                <td className="px-6 py-4">3</td>
-                                <td className="px-6 py-4 text-right">
-                                    <button className="font-medium text-primary-dark hover:underline">
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
-        </div>
-    );
+  return (
+    <Table>
+      <Thead className="text-xs text-gray-700 uppercase bg-gray-50">
+        <Tr>
+          <Th scope="col" className="px-6 py-3">
+            Product name
+          </Th>
+          <Th scope="col" className="px-6 py-3">
+            Color
+          </Th>
+          <Th scope="col" className="px-6 py-3">
+            Category
+          </Th>
+          <Th scope="col" className="px-6 py-3">
+            Qty
+          </Th>
+          <Th scope="col" className="px-6 py-3">
+            <span className="sr-only">Edit</span>
+          </Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+        {Array(10)
+          .fill(0)
+          .map((_, index) => (
+            <Tr className="bg-white border-b hover:bg-gray-50">
+              <Td
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+              >
+                Apple MacBook Pro 17"
+              </Td>
+              <Td className="px-6 py-4">Sliver</Td>
+              <Td className="px-6 py-4">Laptop</Td>
+              <Td className="px-6 py-4">3</Td>
+              <Td className="px-6 py-4 text-right">
+                <button className="font-medium text-primary-dark hover:underline">
+                  Cancel
+                </button>
+              </Td>
+            </Tr>
+          ))}
+      </Tbody>
+    </Table>
+  );
 }
 
 export default Orders;
