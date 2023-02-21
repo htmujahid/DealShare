@@ -116,3 +116,34 @@ export async function getRelatedProducts(category, limit) {
     ])
     .toArray();
 }
+
+export async function searchProducts(query) {
+  return await db
+    .collection("products")
+    .aggregate([
+      {
+        $match: {
+          $text: {
+            $search: query,
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "productMedia",
+          localField: "_id",
+          foreignField: "productId",
+          as: "media",
+        },
+      },
+      {
+        $unwind: "$media",
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+    ])
+    .toArray();
+}

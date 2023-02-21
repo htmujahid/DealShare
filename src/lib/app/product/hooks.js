@@ -74,3 +74,16 @@ export function useRelatedProducts(id, category, limit) {
     loading: !data && !error,
   };
 }
+
+export function useSearchedProducts(searchTerm) {
+  const { data, error } = useSWR(
+    searchTerm ? `/api/products/search?searchTerm=${searchTerm}` : null,
+    fetcher
+  );
+
+  return {
+    products: data,
+    error,
+    loading: !data && !error,
+  };
+}

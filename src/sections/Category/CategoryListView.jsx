@@ -12,7 +12,7 @@ function CategoryListView({ products }) {
             <ProductDetailedCard key={product._id} product={product} />
           ))
         ) : (
-          <>No Products of the selected category</>
+          <>No Products found.</>
         )}
       </div>
     </div>

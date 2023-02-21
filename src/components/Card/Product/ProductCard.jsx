@@ -4,11 +4,11 @@ import React from "react";
 
 function ProductCard({ product }) {
   return (
-    <Link href={`/product/${product?._id}`}>
-      <div className="p-4 border border-primary-light rounded-xl w-[240px] h-[323]">
-        <div className="rounded-xl h-[180px] w-[208px] bg-neutral flex items-center">
+    <Link className="col-span-3" href={`/product/${product?._id}`}>
+      <div className="p-4 border border-primary-light rounded-xl col-span-4">
+        <div className="rounded-x bg-neutral flex items-center">
           <img
-            className="hover:scale-125 transition-transform duration-300 rounded-xl h-full"
+            className="rounded-xl w-full"
             src={product?.media?.mediaURL[0] ?? ""}
             alt="abc"
           />
