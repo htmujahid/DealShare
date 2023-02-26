@@ -1,8 +1,19 @@
+import { CartContext } from "@/components/ContextProviders";
 import { Button } from "@/components/Form";
+import {
+  ModalBody,
+  ModalContainer,
+  ModalFooter,
+  ModalHeader,
+} from "@/components/Modal";
+import { isItemAlreadyIncluded } from "@/lib/app/cart";
 import Link from "next/link";
-import React from "react";
+import React, { useContext, useState } from "react";
 
 function ProductCard({ product }) {
+  const { cartItems, setCartItems } = useContext(CartContext);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
   return (
     <Link className="col-span-1" href={`/product/${product?._id}`}>
       <div className="p-4 border border-primary-light rounded-xl col-span-4">
@@ -24,11 +35,25 @@ function ProductCard({ product }) {
             <div>
               <p className="text-lg font-bold">${product?.price}</p>
             </div>
+            {showConfirmationModal && (
+              <ConfirmationModal
+                numberOfItems={cartItems.length}
+                onClose={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowConfirmationModal(false);
+                }}
+              />
+            )}
             <Button
               type="primary"
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                if (!isItemAlreadyIncluded(cartItems, product)) {
+                  setCartItems((prev) => [...prev, product]);
+                }
+                setShowConfirmationModal(true);
               }}
             >
               Add to Cart
@@ -37,6 +62,29 @@ function ProductCard({ product }) {
         </div>
       </div>
     </Link>
+  );
+}
+
+function ConfirmationModal({ numberOfItems, onClose }) {
+  return (
+    <ModalContainer>
+      <ModalHeader heading="Item added" onClose={onClose} />
+      <ModalBody>
+        <div className="flex">
+          <span className="material-symbols-outlined mr-2 text-[#9dcc00]">
+            check_circle
+          </span>
+          A new item has been added to your cart. You have {numberOfItems} items
+          in your cart.
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <Link href="/cart">
+          <Button type="primary">View Shopping Cart</Button>
+        </Link>
+        <Button onClick={onClose}>Continue Shopping</Button>
+      </ModalFooter>
+    </ModalContainer>
   );
 }
 

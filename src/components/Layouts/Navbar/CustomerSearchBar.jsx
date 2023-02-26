@@ -1,4 +1,4 @@
-import { SearchContext } from "@/components/ContextProviders";
+import { CartContext, SearchContext } from "@/components/ContextProviders";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -20,6 +20,7 @@ function CustomerSearchBar() {
   ];
 
   const { searchKeyword, setSearchKeyword } = useContext(SearchContext);
+  const { cartItems } = useContext(CartContext);
   const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,8 +66,11 @@ function CustomerSearchBar() {
           <Link href="/account">
             <span className="material-symbols-outlined">person</span>
           </Link>
-          <Link href="/cart">
+          <Link className="relative" href="/cart">
             <span className="material-symbols-outlined">shopping_cart</span>
+            <span className="absolute -top-2 -right-4 rounded-full text-xs bg-primary flex items-center justify-center w-[20px] h-[20px]">
+              {cartItems.length}
+            </span>
           </Link>
         </div>
       </div>
