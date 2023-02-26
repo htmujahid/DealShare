@@ -38,7 +38,7 @@ function ShppingCart() {
             <Button>Continue Shopping</Button>
           </Link>
           <Link href="/checkout">
-            <Button type="primary">Go to Checkout</Button>
+            <Button variant="primary">Go to Checkout</Button>
           </Link>
         </div>
       </div>
