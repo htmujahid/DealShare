@@ -2,11 +2,14 @@ import { Button, Input, Select } from "@/components/Form";
 import { AuthContainer } from "@/components/Layouts/Container";
 import { registerUser } from "@/lib/app/user";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 function Signup() {
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const fNameRef = useRef();
   const lNameRef = useRef();
@@ -25,6 +28,7 @@ function Signup() {
         role: roleRef.current.value,
       });
       toast.success("User created successfully.");
+      router.push("/auth/login");
       setLoading(false);
     } catch (e) {
       setLoading(false);

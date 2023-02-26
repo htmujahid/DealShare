@@ -4,15 +4,15 @@ import { CategoryFilters } from "../Common";
 
 function CategoryGridView({ products }) {
   return (
-    <div className="flex justify-between min-w-[1280px] mb-16">
+    <div className="flex min-w-[1280px] mb-16">
       <CategoryFilters />
-      <div className="flex justify-start flex-wrap gap-4 w-fit">
+      <div className="grid grid-cols-4 justify-start gap-x-4 gap-y-8 w-fit">
         {products?.length > 0 ? (
           products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))
         ) : (
-          <>No Products of the selected category</>
+          <>No Products found.</>
         )}
       </div>
     </div>

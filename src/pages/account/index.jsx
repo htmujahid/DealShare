@@ -1,10 +1,15 @@
 import { CustomerLayout } from "@/components/Layouts";
+import { userRoles } from "@/lib/app/user";
 import { CustomerAccount } from "@/sections/Account";
 
-export default function Home() {
-    return (
-        <CustomerLayout>
-            <CustomerAccount />
-        </CustomerLayout>
-    );
+function Home() {
+  return (
+    <CustomerLayout>
+      <CustomerAccount />
+    </CustomerLayout>
+  );
 }
+
+Home.routeProtector = [userRoles.CUSTOMER];
+
+export default Home;

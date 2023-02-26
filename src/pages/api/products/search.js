@@ -1,4 +1,4 @@
-import { getRecentProductsByCategory } from "@/lib/api/db";
+import { searchProducts } from "@/lib/api/db";
 import { database } from "@/lib/api/middleware";
 import { ncRouteHandlerOpts } from "@/lib/api/nc";
 import { createRouter } from "next-connect";
@@ -7,11 +7,11 @@ const router = createRouter();
 
 router.use(database);
 
-//get products by category
+//get products by searchterm
 router.get(async (req, res) => {
   try {
-    const products = await getRecentProductsByCategory(
-      req.query.category,
+    const products = await searchProducts(
+      req.query.searchTerm,
       parseInt(req.query.page),
       parseInt(req.query.limit)
     );

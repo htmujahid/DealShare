@@ -9,7 +9,7 @@ function ProductCategory({ products }) {
   return (
     <CustomerContainer>
       <h1 className="text-4xl font-bold pb-8">Product Category</h1>
-      <div className="flex justify-start gap-4 pb-16">
+      <div className="grid grid-cols-5 justify-start gap-4 pb-16">
         {randomProducts.map((product) => (
           <ProductCard product={product} key={product._id} />
         ))}

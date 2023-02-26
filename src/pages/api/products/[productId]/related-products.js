@@ -16,7 +16,6 @@ router.get(async (req, res) => {
     );
     return res.status(200).json(products);
   } catch (e) {
-    console.log(e);
     return res.status(500).end();
   }
 });

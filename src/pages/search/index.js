@@ -1,17 +1,17 @@
-import React, { useState } from "react";
 import { CustomerLayout } from "@/components/Layouts";
+import Pagination from "@/components/Pagination/Pagination";
+import { useSearchedProducts } from "@/lib/app/product";
 import { CategoryViews } from "@/sections/Category";
 import { useRouter } from "next/router";
-import { stringToTitleCase, useCategoryProducts } from "@/lib/app/product";
-import Pagination from "@/components/Pagination/Pagination";
+import React, { useState } from "react";
 
-function index() {
+function SearchPage() {
   const ITEMSPERPAGE = 10;
   const [page, setPage] = useState(0);
 
   const router = useRouter();
-  const { products } = useCategoryProducts(
-    stringToTitleCase(router.query.category),
+  const { products } = useSearchedProducts(
+    router.query.searchTerm,
     page,
     ITEMSPERPAGE
   );
@@ -20,7 +20,7 @@ function index() {
     <CustomerLayout>
       <CategoryViews
         products={products?.paginatedResults}
-        category={stringToTitleCase(router.query.category)}
+        searchTerm={router.query.searchTerm}
       />
       <Pagination
         page={page}
@@ -31,4 +31,4 @@ function index() {
   );
 }
 
-export default index;
+export default SearchPage;

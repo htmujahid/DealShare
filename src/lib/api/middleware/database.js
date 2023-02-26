@@ -6,6 +6,7 @@ global.mongo = global.mongo || {};
 export let db;
 
 let superAdminCreated = false;
+let indexesCreated = false;
 
 export async function getMongoClient() {
   if (!global.mongo.client) {
@@ -25,10 +26,21 @@ async function createSuperAdmin() {
   superAdminCreated = true;
 }
 
+async function createIndexes() {
+  await Promise.all([
+    db
+      .collection("products")
+      .createIndex({ name: "text", description: "text" }),
+  ]);
+
+  indexesCreated = true;
+}
+
 export default async function database(req, res, next) {
   const dbClient = await getMongoClient();
 
   if (!db) db = dbClient.db(process.env.MONGODB_DB);
   if (!superAdminCreated) await createSuperAdmin();
+  if (!indexesCreated) await createIndexes();
   return await next();
 }

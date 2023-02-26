@@ -27,8 +27,8 @@ export async function getRecentProducts(limit) {
     .toArray();
 }
 
-export async function getRecentProductsByCategory(category, limit) {
-  return await db
+export async function getRecentProductsByCategory(category, page, limit) {
+  const products = await db
     .collection("products")
     .aggregate([
       {
@@ -53,10 +53,22 @@ export async function getRecentProductsByCategory(category, limit) {
         },
       },
       {
-        $limit: limit,
+        $facet: {
+          paginatedResults: [{ $skip: page * limit }, { $limit: limit }],
+          totalCount: [
+            {
+              $count: "count",
+            },
+          ],
+        },
       },
     ])
     .toArray();
+
+  return {
+    paginatedResults: products[0].paginatedResults,
+    count: products[0].totalCount[0].count,
+  };
 }
 
 export async function getProduct(id) {
@@ -115,4 +127,50 @@ export async function getRelatedProducts(category, limit) {
       },
     ])
     .toArray();
+}
+
+export async function searchProducts(query, page, limit) {
+  const products = await db
+    .collection("products")
+    .aggregate([
+      {
+        $match: {
+          $text: {
+            $search: query,
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "productMedia",
+          localField: "_id",
+          foreignField: "productId",
+          as: "media",
+        },
+      },
+      {
+        $unwind: "$media",
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
+        $facet: {
+          paginatedResults: [{ $skip: page * limit }, { $limit: limit }],
+          totalCount: [
+            {
+              $count: "count",
+            },
+          ],
+        },
+      },
+    ])
+    .toArray();
+
+  return {
+    paginatedResults: products[0].paginatedResults,
+    count: products[0].totalCount[0].count,
+  };
 }

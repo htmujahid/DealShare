@@ -15,16 +15,6 @@ const router = createRouter();
 
 router.use(database);
 
-//get current user
-router.use(tokenChecker).get(async (req, res) => {
-  try {
-    const user = await getCurrentUser(req.user._id);
-    return res.status(200).json(user);
-  } catch (e) {
-    return res.status(500).end();
-  }
-});
-
 //Add a new user
 router.post(async (req, res) => {
   try {
@@ -59,13 +49,22 @@ router.post(async (req, res) => {
   }
 });
 
+//get current user
+router.use(tokenChecker).get(async (req, res) => {
+  try {
+    const user = await getCurrentUser(req.user._id);
+    return res.status(200).json(user);
+  } catch (e) {
+    return res.status(500).end();
+  }
+});
+
 //update user password
 router.use(tokenChecker).put(async (req, res) => {
   try {
     const { currentPassword, newPassword, confirmPassword } = req.body;
     const user = await getUser(req.user._id);
     if (!(await verifyPassword(currentPassword, user.password))) {
-      console.log("HERE");
       return res.status(403).json({
         error: { message: "The current password is incorrect." },
       });
