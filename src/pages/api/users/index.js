@@ -65,7 +65,6 @@ router.use(tokenChecker).put(async (req, res) => {
     const { currentPassword, newPassword, confirmPassword } = req.body;
     const user = await getUser(req.user._id);
     if (!(await verifyPassword(currentPassword, user.password))) {
-      console.log("HERE");
       return res.status(403).json({
         error: { message: "The current password is incorrect." },
       });

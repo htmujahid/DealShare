@@ -12,6 +12,7 @@ router.get(async (req, res) => {
   try {
     const products = await getRecentProductsByCategory(
       req.query.category,
+      parseInt(req.query.page),
       parseInt(req.query.limit)
     );
     return res.status(200).json(products);

@@ -25,7 +25,6 @@ function CustomerSearchBar() {
     e.preventDefault();
     router.replace(`/search?searchTerm=${searchKeyword}`);
   };
-  console.log(searchKeyword);
 
   return (
     <CustomerContainer>

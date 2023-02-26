@@ -11,9 +11,11 @@ export function useProducts(limit) {
   };
 }
 
-export function useCategoryProducts(category, limit) {
+export function useCategoryProducts(category, page, limit) {
   const { data, error } = useSWR(
-    `/api/products/category?category=${category}&limit=${limit}`,
+    category && (page || page === 0) && limit
+      ? `/api/products/category?category=${category}&page=${page}&limit=${limit}`
+      : null,
     fetcher
   );
 
@@ -75,9 +77,11 @@ export function useRelatedProducts(id, category, limit) {
   };
 }
 
-export function useSearchedProducts(searchTerm) {
+export function useSearchedProducts(searchTerm, page, limit) {
   const { data, error } = useSWR(
-    searchTerm ? `/api/products/search?searchTerm=${searchTerm}` : null,
+    searchTerm && (page || page === 0) && limit
+      ? `/api/products/search?searchTerm=${searchTerm}&page=${page}&limit=${limit}`
+      : null,
     fetcher
   );
 
