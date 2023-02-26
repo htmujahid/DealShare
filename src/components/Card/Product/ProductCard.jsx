@@ -4,7 +4,7 @@ import React from "react";
 
 function ProductCard({ product }) {
   return (
-    <Link className="col-span-3" href={`/product/${product?._id}`}>
+    <Link className="col-span-1" href={`/product/${product?._id}`}>
       <div className="p-4 border border-primary-light rounded-xl col-span-4">
         <div className="rounded-x bg-neutral flex items-center">
           <img
