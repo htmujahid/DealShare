@@ -1,3 +1,4 @@
+export { default as TableContainer } from "./TableContainer";
 export { default as Table } from "./Table";
 export { default as Tbody } from "./Tbody";
 export { default as Td } from "./Td";
