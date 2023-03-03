@@ -68,9 +68,11 @@ function CustomerSearchBar() {
           </Link>
           <Link className="relative" href="/cart">
             <span className="material-symbols-outlined">shopping_cart</span>
-            <span className="absolute -top-2 -right-4 rounded-full text-xs bg-primary flex items-center justify-center w-[20px] h-[20px]">
-              {cartItems.length}
-            </span>
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-4 rounded-full text-xs bg-primary flex items-center justify-center w-[20px] h-[20px]">
+                {cartItems.length}
+              </span>
+            )}
           </Link>
         </div>
       </div>
