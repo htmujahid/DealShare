@@ -67,7 +67,8 @@ function AccountDetails() {
       <Button
         onClick={handleUserUpdate}
         className="w-[10%] justify-center "
-        type="primary"
+        variant="primary"
+        loading={loading}
       >
         Save
       </Button>

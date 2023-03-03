@@ -46,7 +46,7 @@ function ProductCard({ product }) {
               />
             )}
             <Button
-              type="primary"
+              variant="primary"
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();

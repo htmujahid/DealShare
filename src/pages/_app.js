@@ -3,8 +3,9 @@ import { CartContextProvider } from "@/components/ContextProviders";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
+import App from "@/components/Layouts/App";
 
-export default function App({
+export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }) {
@@ -14,14 +15,12 @@ export default function App({
 
   return (
     <SessionProvider session={session}>
-      <CartContextProvider>
-        {withRouteProtectors(
-          <>
-            <Component {...pageProps} />
-            <Toaster />
-          </>
-        )}
-      </CartContextProvider>
+      {withRouteProtectors(
+        <App>
+          <Component {...pageProps} />
+          <Toaster />
+        </App>
+      )}
     </SessionProvider>
   );
 }

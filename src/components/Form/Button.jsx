@@ -1,6 +1,13 @@
 import React from "react";
+import DotLoader from "./../Loaders/DotLoader";
 
-function Button({ variant = "default", className, children, ...props }) {
+function Button({
+  variant = "default",
+  loading,
+  className,
+  children,
+  ...props
+}) {
   return (
     <button
       className={`px-4 py-3 border rounded-xl font-bold flex items-center ${
@@ -8,7 +15,7 @@ function Button({ variant = "default", className, children, ...props }) {
       } ${className}`}
       {...props}
     >
-      {children}
+      {loading ? <DotLoader /> : children}
     </button>
   );
 }

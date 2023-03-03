@@ -1,18 +1,5 @@
-import { CustomerLayout } from "@/components/Layouts";
-import { useProducts } from "@/lib/app/product";
-import { CategoryTags } from "@/sections/Common";
-import { Reviews } from "@/sections/Common/Testimonials";
-import { ProductCategory, ProductsGrid } from "@/sections/Home";
+import Home from "@/client/Home";
 
-export default function Home() {
-  const { products } = useProducts(60);
-
-  return (
-    <CustomerLayout>
-      <ProductsGrid products={products} />
-      <Reviews />
-      <ProductCategory products={products} />
-      <CategoryTags />
-    </CustomerLayout>
-  );
+export default function HomePage() {
+  return <Home />;
 }
