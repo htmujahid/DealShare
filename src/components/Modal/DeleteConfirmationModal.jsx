@@ -1,22 +1,23 @@
 import { ModalBody, ModalContainer, ModalFooter, ModalHeader } from ".";
-import { Button } from "../Form";
+import { AlertButton, DarkButton } from "../Buttons";
 
 function DeleteConfirmationModal({ onClose, message, onConfirm }) {
   return (
-    <ModalContainer>
+    <ModalContainer maxWidth={600}>
       <ModalHeader heading="Delete Item" onClose={onClose} />
-      <ModalBody>{message}</ModalBody>
+      <ModalBody className="flex items-center">{message}</ModalBody>
       <ModalFooter>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button
+        <AlertButton
           onClick={() => {
             onConfirm();
             onClose();
           }}
-          variant="primary"
         >
-          Confirm
-        </Button>
+          Yes, I'm sure
+        </AlertButton>
+        <DarkButton onClick={onClose} variant="primary">
+          No, Cancel
+        </DarkButton>
       </ModalFooter>
     </ModalContainer>
   );
