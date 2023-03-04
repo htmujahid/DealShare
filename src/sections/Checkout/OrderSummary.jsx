@@ -1,13 +1,14 @@
-import { ProductSummaryCard } from "@/components/Card";
+import { BillSummaryCard, ProductSummaryCard } from "@/components/Card";
+import { CartContext } from "@/components/ContextProviders";
 import { Button } from "@/components/Form";
-import { CustomerContainer } from "@/components/Layouts/Container";
+import { calculateSubtotalPrice, calculateTotalPrice } from "@/lib/app/product";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useContext } from "react";
 
 function OrderSummary() {
   const router = useRouter();
-  console.log(router.asPath);
+  const { cartItems } = useContext(CartContext);
 
   return (
     <div>
@@ -20,15 +21,13 @@ function OrderSummary() {
           </p>
         </div>
         <div className="flex flex-col gap-12">
-          {Array(3)
-            .fill()
-            .map((_, i) => (
-              <ProductSummaryCard key={i} />
-            ))}
+          {cartItems?.map((product) => (
+            <BillSummaryCard key={product?._id} product={product} />
+          ))}
         </div>
         <div className="grid grid-cols-2 mt-8 gap-3 text-sm font-bold">
           <p className="">Subtotal</p>
-          <p className="text-right">$ 1,000.00</p>
+          <p className="text-right">$ {calculateSubtotalPrice(cartItems)}</p>
           <p className="">Tax</p>
           <p className="text-right">$ 1,000.00</p>
           <p className="">Shipping</p>
@@ -37,7 +36,9 @@ function OrderSummary() {
             Total <br />
             <span className="text-xs font-normal">Taxes are applied</span>
           </p>
-          <p className="text-right text-primary-dark text-2xl">$ 1,000.00</p>
+          <p className="text-right text-primary-dark text-2xl">
+            $ {calculateTotalPrice(cartItems, 5.5, 25)}
+          </p>
         </div>
         <div className="flex mt-4 justify-between">
           {router.asPath === "/cart" && (

@@ -15,12 +15,14 @@ export default function MyApp({
 
   return (
     <SessionProvider session={session}>
-      {withRouteProtectors(
-        <App>
-          <Component {...pageProps} />
-          <Toaster />
-        </App>
-      )}
+      <CartContextProvider>
+        {withRouteProtectors(
+          <App>
+            <Component {...pageProps} />
+            <Toaster />
+          </App>
+        )}
+      </CartContextProvider>
     </SessionProvider>
   );
 }

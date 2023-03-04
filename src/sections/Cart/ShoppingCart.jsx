@@ -5,7 +5,7 @@ import { OrderSummary } from "../Checkout";
 import Link from "next/link";
 import { CartContext } from "@/components/ContextProviders";
 
-function ShppingCart() {
+function ShoppingCart() {
   const { cartItems } = useContext(CartContext);
 
   return cartItems.length > 0 ? (
@@ -21,7 +21,7 @@ function ShppingCart() {
           </div>
           <div className="flex flex-col gap-12">
             {cartItems.map((product) => (
-              <ProductSummaryCard key={product._id} product={product} />
+              <ProductSummaryCard key={product?._id} product={product} />
             ))}
           </div>
         </div>
@@ -38,4 +38,4 @@ function ShppingCart() {
   );
 }
 
-export default ShppingCart;
+export default ShoppingCart;

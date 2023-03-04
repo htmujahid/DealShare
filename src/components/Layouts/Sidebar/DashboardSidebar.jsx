@@ -8,7 +8,6 @@ function DashboardSidebar() {
   const [path, setPath] = React.useState("");
   useEffect(() => {
     setPath(pathname.split("/")[2]);
-    console.log(pathname.split("/")[2]);
   }, [pathname]);
 
   return (

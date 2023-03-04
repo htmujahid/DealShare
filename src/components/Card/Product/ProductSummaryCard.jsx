@@ -1,13 +1,25 @@
 import { CartContext } from "@/components/ContextProviders";
 import { DeleteConfirmationModal } from "@/components/Modal";
 import { ProductReview } from "@/components/Patterns";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 function ProductSummaryCard({ product }) {
-  console.log(product);
   const [qty, setQty] = React.useState(1);
   const { cartItems, setCartItems } = useContext(CartContext);
   const [showDeleteConfrimation, setShowDeleteConfirmation] = useState(false);
+
+  useEffect(() => {
+    setCartItems(
+      cartItems.map((item) => {
+        if (item._id === product._id) {
+          const newItem = item;
+          item.quantity = qty;
+          return newItem;
+        }
+        return item;
+      })
+    );
+  }, [qty]);
 
   return (
     <div className="flex gap-x-3">

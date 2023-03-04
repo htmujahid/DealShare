@@ -30,3 +30,18 @@ export function stringToTitleCase(string) {
     return titleCase;
   }
 }
+
+export function calculateSubtotalPrice(products) {
+  let totalPrice = 0;
+  for (let i = 0; i < products?.length; i++) {
+    totalPrice += parseFloat(products[i]?.price) * (products[i]?.quantity ?? 1);
+  }
+
+  return totalPrice;
+}
+
+export function calculateTotalPrice(products, taxPercent, shipping) {
+  let totalPrice = calculateSubtotalPrice(products);
+  totalPrice += totalPrice * (taxPercent / 100) + shipping;
+  return totalPrice;
+}
