@@ -14,7 +14,8 @@ function Login() {
   const { status } = useSession();
   const router = useRouter();
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault();
     try {
       setLoading(true);
       const response = await signIn("credentials", {
@@ -46,7 +47,10 @@ function Login() {
             <h4 className="text-2xl font-bold text-center">Welcome Back!</h4>
             <p className="text-gray-500 text-center">Login to Your Account</p>
           </div>
-          <div className="flex flex-col w-full mt-4 gap-4">
+          <form
+            onSubmit={handleSignIn}
+            className="flex flex-col w-full mt-4 gap-4"
+          >
             <Input
               inputRef={emailRef}
               type="email"
@@ -64,13 +68,14 @@ function Login() {
               Password
             </Input>
             <Button
-              onClick={handleSignIn}
-              type="primary"
+              type="submit"
+              variant="primary"
               className="w-full justify-center"
+              loading={loading}
             >
               Login
             </Button>
-          </div>
+          </form>
           <div className="flex justify-between mt-4">
             <div>
               <Link

@@ -60,8 +60,9 @@ function ResetPassword() {
       </div>
       <Button
         onClick={handleResetPassword}
-        type="primary"
+        variant="primary"
         className="w-fit mx-auto"
+        loading={loading}
       >
         Save
       </Button>
