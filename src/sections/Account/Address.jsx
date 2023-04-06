@@ -14,6 +14,7 @@ function Address() {
 
   const handleAddressSave = async () => {
     try {
+      setLoading(true);
       await updateUser(user._id, {
         address: addressRef.current.value,
         city: cityRef.current.value,
@@ -21,8 +22,10 @@ function Address() {
         zipCode: zipCodeRef.current.value,
       });
       toast.success("Address updated successfully.");
+      setLoading(false);
     } catch (e) {
       toast.error(e.message);
+      setLoading(false);
     }
   };
 
@@ -53,8 +56,9 @@ function Address() {
       </div>
       <Button
         onClick={handleAddressSave}
-        type="primary"
+        variant="primary"
         className="w-fit mx-auto"
+        loading={loading}
       >
         Save
       </Button>

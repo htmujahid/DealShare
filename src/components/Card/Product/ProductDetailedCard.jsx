@@ -52,7 +52,7 @@ function ProductDetailedCard({ product }) {
         </div>
         <div className="flex flex-col gap-3">
           <Link href={`/product/${product?._id}`}>
-            <Button type="primary">
+            <Button variant="primary">
               Product Detail
               <span className="material-symbols-outlined">arrow_right</span>
             </Button>

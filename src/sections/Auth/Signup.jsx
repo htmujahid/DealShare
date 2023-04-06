@@ -95,8 +95,9 @@ function Signup() {
 
             <Button
               onClick={handleSignUp}
-              type="primary"
+              variant="primary"
               className="w-full justify-center"
+              loading={loading}
             >
               Signup
             </Button>
