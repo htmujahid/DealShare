@@ -13,7 +13,7 @@ function DashboardComponents() {
       <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
         <StatsSummary
           value={[
-            { title: "All Customers", value: 350 },
+            { title: "All Customers", value: 300 },
             { title: "Active Customers", value: 325 },
           ]}
         />
