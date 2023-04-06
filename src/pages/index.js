@@ -1,4 +1,4 @@
-import Home from "@/client/Home";
+import { Home } from "@/sections/Home";
 
 export default function HomePage() {
   return <Home />;

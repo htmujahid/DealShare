@@ -1,4 +1,4 @@
-import CategoryProducts from "@/client/Products/CategoryProducts";
+import { CategoryProducts } from "@/sections/Product";
 
 function index() {
   return <CategoryProducts />;
