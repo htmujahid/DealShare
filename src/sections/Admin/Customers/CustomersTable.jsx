@@ -1,5 +1,5 @@
 import { Search } from "@/components/Form";
-import { ModalDelete } from "@/components/Modal";
+import { DeleteConfirmationModal } from "@/components/Modal";
 import { PaginationCount } from "@/components/Pagination";
 import {
   Table,
@@ -10,16 +10,12 @@ import {
   Thead,
   Tr,
 } from "@/components/Table";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import CustomerUpdate from "./CustomerUpdate";
 
 function CustomersTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-
-  const router = useRouter();
 
   return (
     <>
@@ -107,9 +103,9 @@ function CustomersTable() {
           <PaginationCount />
         </TableContainer>
         {showDeleteModal && (
-          <ModalDelete
-            setShowDeleteModal={setShowDeleteModal}
-            title="Are you sure you want to delete this customer?"
+          <DeleteConfirmationModal
+            onClose={() => setShowDeleteModal(false)}
+            message="Are you sure you want to delete this customer?"
           />
         )}
         {showUpdateModal && (

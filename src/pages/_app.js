@@ -1,4 +1,5 @@
 import Access from "@/components/auth-checkers/access";
+import { CartContextProvider } from "@/components/ContextProviders";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
@@ -14,12 +15,14 @@ export default function MyApp({
 
   return (
     <SessionProvider session={session}>
-      {withRouteProtectors(
-        <App>
-          <Component {...pageProps} />
-          <Toaster />
-        </App>
-      )}
+      <CartContextProvider>
+        {withRouteProtectors(
+          <App>
+            <Component {...pageProps} />
+            <Toaster />
+          </App>
+        )}
+      </CartContextProvider>
     </SessionProvider>
   );
 }
