@@ -1,5 +1,5 @@
 import { PrimaryButton } from "@/components/Buttons";
-import { Input } from "@/components/Form";
+import { Input, Textarea } from "@/components/Form";
 import React from "react";
 
 function SettingComponents() {

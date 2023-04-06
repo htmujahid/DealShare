@@ -1,5 +1,8 @@
 import { DashboardLayout } from "@/components/Layouts";
-import { CustomersSummary, CustomersTable } from "@/sections/Admin/Customers";
+import {
+  CustomersSummary,
+  CustomersTable,
+} from "@/sections/Manufacturer/Customers";
 import React from "react";
 
 export default function index() {

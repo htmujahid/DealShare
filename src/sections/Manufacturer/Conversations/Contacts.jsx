@@ -9,9 +9,9 @@ function Contacts() {
         <h1 className="text-xl font-semibold text-gray-900">Contacts</h1>
         <p>39</p>
       </div>
-      {/* <Input type="text" placeholder="Search" className="w-full my-4" /> */}
-      <div className="overflow-auto h-16 scrollbar-hide">
-        <div className="flex flex-row gap-x-4">
+      <Input type="text" placeholder="Search" className="w-full my-4" />
+      <div className="overflow-auto h-16 xl:h-[86%] scrollbar-hide">
+        <div className="flex flex-row xl:flex-col gap-x-4">
           {Array(20)
             .fill(0)
             .map((_, i) => (

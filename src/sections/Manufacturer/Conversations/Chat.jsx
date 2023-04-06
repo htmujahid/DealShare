@@ -21,7 +21,7 @@ function Chat() {
           <p className="text-gray-500 hover:text-gray-900 text-sm">0 Orders</p>
         </div>
       </div>
-      <div className="overflow-auto h-[500px] scrollbar-hide">
+      <div className="overflow-auto h-[650px] scrollbar-hide">
         <div className="flex flex-col gap-y-2">
           {messages.map((message, i) => (
             <div key={i} className="flex justify-end gap-y-4">

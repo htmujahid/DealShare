@@ -1,5 +1,5 @@
 import { DashboardLayout } from "@/components/Layouts";
-import { OrderDetail } from "@/sections/Admin/Orders";
+import { OrderDetail } from "@/sections/Manufacturer/Orders";
 
 export default function index() {
   return (
