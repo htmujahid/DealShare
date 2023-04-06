@@ -1,18 +1,21 @@
 import { GrayButton, PrimaryButton } from "@/components/Buttons";
 import { Input } from "@/components/Form";
 import {
-  ModalButtons,
+  ModalBody,
   ModalContainer,
-  ModalContent,
-  ModalTitle,
+  ModalFooter,
+  ModalHeader,
 } from "@/components/Modal";
 import React from "react";
 
 function CustomerNew({ setShowAddModal }) {
   return (
     <ModalContainer>
-      <ModalTitle title="Add New Customer" close={setShowAddModal} />
-      <ModalContent>
+      <ModalHeader
+        heading="Add New Customer"
+        onClose={() => setShowAddModal(false)}
+      />
+      <ModalBody>
         <form action="#">
           <div className="grid grid-cols-1 gap-6">
             <div className="flex gap-6">
@@ -37,13 +40,13 @@ function CustomerNew({ setShowAddModal }) {
             <Input placeholder="United States" className="w-full"></Input>
           </div>
         </form>
-      </ModalContent>
-      <ModalButtons>
+      </ModalBody>
+      <ModalFooter>
         <PrimaryButton type="submit">Add Customer</PrimaryButton>
         <GrayButton type="button" onClick={() => setShowAddModal(false)}>
           Cancel
         </GrayButton>
-      </ModalButtons>
+      </ModalFooter>
     </ModalContainer>
   );
 }

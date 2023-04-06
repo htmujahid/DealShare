@@ -1,5 +1,5 @@
-export { default as ModalDelete } from "./ModalDelete";
 export { default as ModalContainer } from "./ModalContainer";
-export { default as ModalContent } from "./ModalContent";
-export { default as ModalButtons } from "./ModalButtons";
-export { default as ModalTitle } from "./ModalTitle";
+export { default as ModalHeader } from "./ModalHeader";
+export { default as ModalBody } from "./ModalBody";
+export { default as ModalFooter } from "./ModalFooter";
+export { default as DeleteConfirmationModal } from "./DeleteConfirmationModal";

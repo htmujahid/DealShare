@@ -1,3 +1,6 @@
+const taxPercent = 5.5;
+const shipping = 25;
+
 export function calculateDayDifference(date1, date2) {
   const diffTime = Math.abs(date2 - date1);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -29,4 +32,19 @@ export function stringToTitleCase(string) {
     }
     return titleCase;
   }
+}
+
+export function calculateSubtotalPrice(products) {
+  let totalPrice = 0;
+  for (let i = 0; i < products?.length; i++) {
+    totalPrice += parseFloat(products[i]?.price) * (products[i]?.quantity ?? 1);
+  }
+
+  return totalPrice;
+}
+
+export function calculateTotalPrice(products) {
+  let totalPrice = calculateSubtotalPrice(products);
+  totalPrice += totalPrice * (taxPercent / 100) + shipping;
+  return totalPrice;
 }

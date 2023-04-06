@@ -4,3 +4,4 @@ export { default as ProductDescriptionCard } from "./Product/ProductDescriptionC
 export { default as ReviewCard } from "./ReviewCard";
 export { default as ProductSummaryCard } from "./Product/ProductSummaryCard";
 export { default as Contact } from "./Contact";
+export { default as BillSummaryCard } from "./Product/BillSummaryCard";
