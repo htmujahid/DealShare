@@ -38,7 +38,7 @@ export const AccordionItem = ({ title, expanded, skipButton, children }) => {
         className={
           collapsed
             ? "max-h-0 transition-[max-height] duration-700 overflow-hidden"
-            : "max-h-[500px] transition-[max-height] transition-all duration-700"
+            : "max-h-[2000px] transition-[max-height] transition-all duration-700"
         }
       >
         <div className="p-4">

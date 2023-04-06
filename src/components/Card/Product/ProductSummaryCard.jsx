@@ -1,6 +1,5 @@
 import { CartContext } from "@/components/ContextProviders";
 import { DeleteConfirmationModal } from "@/components/Modal";
-import { ProductReview } from "@/components/Patterns";
 import React, { useContext, useEffect, useState } from "react";
 
 function ProductSummaryCard({ product }) {
@@ -33,10 +32,10 @@ function ProductSummaryCard({ product }) {
         />
       )}
       <div>
-        <div className="w-[100px] max-h-[67px] bg-gray-100 rounded-xl mb-4">
+        <div className="w-[100px] max-h-[75px] bg-gray-100 rounded-xl mb-4">
           <img
             src={product?.media.mediaURL[0]}
-            className="w-full"
+            className="w-full h-full max-h-[75px]"
             alt={product?.name}
           />
         </div>
@@ -56,7 +55,6 @@ function ProductSummaryCard({ product }) {
           <p className="w-20">Est. Delivery</p>
           <p className="w-20">12 Days</p>
         </div>
-        <ProductReview rating={4} />
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex-1">

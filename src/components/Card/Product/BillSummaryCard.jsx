@@ -2,10 +2,10 @@ function BillSummaryCard({ product }) {
   return (
     <div className="flex gap-x-3">
       <div>
-        <div className="w-[100px] max-h-[67px] bg-gray-100 rounded-xl mb-4">
+        <div className="w-[100px] max-h-[75px] bg-gray-100 rounded-xl mb-4">
           <img
             src={product?.media.mediaURL[0]}
-            className="w-full"
+            className="h-full w-full max-h-[75px]"
             alt={product?.name}
           />
         </div>

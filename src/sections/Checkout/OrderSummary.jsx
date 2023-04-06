@@ -1,4 +1,4 @@
-import { BillSummaryCard, ProductSummaryCard } from "@/components/Card";
+import { BillSummaryCard } from "@/components/Card";
 import { CartContext } from "@/components/ContextProviders";
 import { Button } from "@/components/Form";
 import { calculateSubtotalPrice, calculateTotalPrice } from "@/lib/app/product";
@@ -37,7 +37,7 @@ function OrderSummary() {
             <span className="text-xs font-normal">Taxes are applied</span>
           </p>
           <p className="text-right text-primary-dark text-2xl">
-            $ {calculateTotalPrice(cartItems, 5.5, 25)}
+            $ {calculateTotalPrice(cartItems)}
           </p>
         </div>
         <div className="flex mt-4 justify-between">
