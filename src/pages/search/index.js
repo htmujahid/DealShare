@@ -1,4 +1,4 @@
-import SearchProducts from "@/client/Products/SearchProducts";
+import { SearchProducts } from "@/sections/Product";
 
 function SearchPage() {
   return <SearchProducts />;

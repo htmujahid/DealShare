@@ -31,8 +31,8 @@ function BillingInfo() {
         <AccordionItem title="Billing Info" expanded>
           <div>
             <div className="mb-8">
-              <h5 className="text-2xl font-bold pb-1">Billing Info</h5>
-              <p className="text-sm text-gray-500 pb-1">
+              <h5 className="pb-1 text-2xl font-bold">Billing Info</h5>
+              <p className="pb-1 text-sm text-gray-500">
                 Please enter your billing info
               </p>
             </div>
@@ -64,7 +64,7 @@ function BillingInfo() {
             </div>
             <div className="ml-auto w-[100px] mt-8">
               <Button
-                className="w-full justify-center"
+                className="justify-center w-full"
                 onClick={handleCheckoutLink}
                 variant="primary"
               >
@@ -76,12 +76,12 @@ function BillingInfo() {
         <AccordionItem title="Payment Method">
           <div className="mb-16">
             <div className="mb-8">
-              <h5 className="text-2xl font-bold pb-1">Payment Method</h5>
-              <p className="text-sm text-gray-500 pb-1">
+              <h5 className="pb-1 text-2xl font-bold">Payment Method</h5>
+              <p className="pb-1 text-sm text-gray-500">
                 Please enter your payment method
               </p>
             </div>
-            <div className="border rounded-xl p-4">
+            <div className="p-4 border rounded-xl">
               <div className="flex justify-between">
                 <p className="text-sm font-bold">Credit Card</p>
                 <div></div>
@@ -112,10 +112,10 @@ function BillingInfo() {
         <AccordionItem title="Additional Information">
           <div className="mb-16">
             <div className="mb-8">
-              <h5 className="text-2xl font-bold pb-1">
+              <h5 className="pb-1 text-2xl font-bold">
                 Additional Information
               </h5>
-              <p className="text-sm text-gray-500 pb-1">
+              <p className="pb-1 text-sm text-gray-500">
                 Need something else? We will make it for you
               </p>
             </div>
@@ -129,8 +129,8 @@ function BillingInfo() {
       </Accordion>
       <div className="mt-8">
         <div className="mb-8">
-          <h5 className="text-2xl font-bold pb-1">Confirmation</h5>
-          <p className="text-sm text-gray-500 pb-1">
+          <h5 className="pb-1 text-2xl font-bold">Confirmation</h5>
+          <p className="pb-1 text-sm text-gray-500">
             We are getting to the end. Just few clicks and your order si ready!
           </p>
         </div>
