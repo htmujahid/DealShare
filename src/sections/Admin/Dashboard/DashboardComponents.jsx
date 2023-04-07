@@ -22,7 +22,7 @@ function DashboardComponents() {
         <StatsSummary
           icon={<CustomerIcon />}
           value={[
-            { title: "All Customers", value: 350 },
+            { title: "All Customers", value: 300 },
             { title: "Active Customers", value: 325 },
           ]}
         />
