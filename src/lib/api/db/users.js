@@ -16,6 +16,20 @@ export function dbProjectionUsers(prefix = "") {
   };
 }
 
+export async function getUsers() {
+  return await db
+    .collection("users")
+    .find({}, { projection: dbProjectionUsers() })
+    .toArray();
+}
+
+export async function getUsersByRole(role) {
+  return await db
+    .collection("users")
+    .find({ role }, { projection: dbProjectionUsers() })
+    .toArray();
+}
+
 export async function getUser(id) {
   return await db.collection("users").findOne({
     _id: new ObjectId(id),

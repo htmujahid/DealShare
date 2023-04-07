@@ -2,8 +2,8 @@ import React from "react";
 
 function StatsSummary({ icon, value = [] }) {
   return (
-    <div class="flex min-h-[145px] w-full flex-col justify-between rounded-xl bg-white px-4 py-3">
-      <div>{icon}</div>
+    <div class="flex min-h-[125px] w-full flex-col justify-between rounded-xl bg-white px-4 py-3">
+      <div className="pt-2 pl-2">{icon}</div>
 
       <div class={`grid grid-cols-${value.length} items-end justify-between`}>
         {value.map((item) => {

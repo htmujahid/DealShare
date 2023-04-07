@@ -3,6 +3,7 @@ import { StatsSummary } from "@/components/Widgets";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import CustomerNew from "./CustomerNew";
+import { ActivityIcon, CustomerIcon } from "@/components/Assets";
 
 function CustomersSummary() {
   const router = useRouter();
@@ -25,23 +26,26 @@ function CustomersSummary() {
         </div>
         <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
           <StatsSummary
+            icon={<CustomerIcon />}
             value={[
               { title: "All Customers", value: 350 },
               { title: "Active Customers", value: 325 },
             ]}
           />
           <StatsSummary
+            icon={<ActivityIcon />}
             value={[
               { title: "New Customers", value: 13 },
               { title: "Returning Customers", value: 0 },
             ]}
           />
-          <StatsSummary
+          {/* <StatsSummary
+            icon={<ActivityIcon />}
             value={[
               { title: "1 Star Rating", value: 3 },
               { title: "5 Star Rating", value: 5 },
             ]}
-          />
+          /> */}
         </div>
       </div>
       {showAddModal && <CustomerNew setShowAddModal={setShowAddModal} />}

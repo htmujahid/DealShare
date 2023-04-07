@@ -1,2 +1,3 @@
 export { default as CustomerHeader } from "./CustomerHeader";
-export { default as DashboardHeader } from "./DashboardHeader";
+export { default as ManufacturerHeader } from "./ManufacturerHeader";
+export { default as AdminHeader } from "./AdminHeader";

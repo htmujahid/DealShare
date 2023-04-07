@@ -1,10 +1,10 @@
-import { DashboardLayout } from "@/components/Layouts";
+import { AdminLayout } from "@/components/Layouts";
 import { OrderDetail } from "@/sections/Admin/Orders";
 
 export default function index() {
   return (
-    <DashboardLayout>
+    <AdminLayout>
       <OrderDetail />
-    </DashboardLayout>
+    </AdminLayout>
   );
 }

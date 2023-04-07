@@ -1,3 +1,4 @@
+import { ProductIcon, StarIcon, TrendingDownIcon } from "@/components/Assets";
 import { PrimaryButton } from "@/components/Buttons";
 import { StatsSummary } from "@/components/Widgets";
 import { useRouter } from "next/router";
@@ -23,6 +24,7 @@ function ProductsSummary() {
         </div>
         <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
           <StatsSummary
+            icon={<ProductIcon />}
             type="single"
             value={[
               { title: "All Products", value: 350 },
@@ -30,12 +32,14 @@ function ProductsSummary() {
             ]}
           />
           <StatsSummary
+            icon={<TrendingDownIcon />}
             value={[
               { title: "Low Stock Alert", value: 13 },
               { title: "Out of Stock", value: 0 },
             ]}
           />
           <StatsSummary
+            icon={<StarIcon />}
             value={[
               { title: "1 Star Rating", value: 3 },
               { title: "5 Star Rating", value: 5 },

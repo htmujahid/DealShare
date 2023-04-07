@@ -1,12 +1,12 @@
-import { DashboardLayout } from "@/components/Layouts";
+import { AdminLayout } from "@/components/Layouts";
 import { ProductsSummary, ProductsTable } from "@/sections/Admin/Products";
 import React from "react";
 
 export default function index() {
   return (
-    <DashboardLayout>
+    <AdminLayout>
       <ProductsSummary />
       <ProductsTable />
-    </DashboardLayout>
+    </AdminLayout>
   );
 }

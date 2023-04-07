@@ -7,18 +7,26 @@ function BarChart() {
   const chartConfig = {
     type: "bar",
     data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      labels: [
+        "Chicago",
+        "New York",
+        "Cape Town",
+        "Los Angeles",
+        "San Francisco",
+        "Seattle",
+      ],
       datasets: [
         {
-          label: "# of Votes",
-
+          label: "# of orders",
           data: [12, 19, 3, 5, 2, 3],
           backgroundColor: randomColors(6),
           borderWidth: 1,
         },
       ],
     },
-    options: chartOptions,
+    options: {
+      ...chartOptions,
+    },
   };
 
   useEffect(() => {

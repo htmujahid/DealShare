@@ -1,4 +1,4 @@
-import { DashboardLayout } from "@/components/Layouts";
+import { ManufacturerLayout } from "@/components/Layouts";
 import {
   ProductsSummary,
   ProductsTable,
@@ -7,9 +7,9 @@ import React from "react";
 
 export default function index() {
   return (
-    <DashboardLayout>
+    <ManufacturerLayout>
       <ProductsSummary />
       <ProductsTable />
-    </DashboardLayout>
+    </ManufacturerLayout>
   );
 }

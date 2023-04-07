@@ -1,2 +1,3 @@
 export { default as CustomerLayout } from "./CustomerLayout";
-export { default as DashboardLayout } from "./DashboardLayout";
+export { default as ManufacturerLayout } from "./ManufacturerLayout";
+export { default as AdminLayout } from "./AdminLayout";

@@ -7,7 +7,14 @@ function DoughnutChart() {
   const chartConfig = {
     type: "doughnut",
     data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      labels: [
+        "IPod",
+        "IPad",
+        "IPhone",
+        "MacBook",
+        "MacBook Pro",
+        "MacBook Air",
+      ],
       datasets: [
         {
           label: "Population (millions)",
@@ -30,7 +37,13 @@ function DoughnutChart() {
 
   return (
     <div className="">
-      <canvas ref={chartContainer} />
+      <canvas
+        ref={chartContainer}
+        style={{
+          width: "400px",
+          height: "400px",
+        }}
+      />
     </div>
   );
 }
