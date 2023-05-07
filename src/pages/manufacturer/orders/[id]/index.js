@@ -1,4 +1,5 @@
 import { ManufacturerLayout } from "@/components/Layouts";
+import { userRoles } from "@/lib/app/user";
 import { OrderDetail } from "@/sections/Manufacturer/Orders";
 
 export default function index() {
@@ -8,3 +9,5 @@ export default function index() {
     </ManufacturerLayout>
   );
 }
+
+index.routeProtector = [userRoles.MANUFACTURER];

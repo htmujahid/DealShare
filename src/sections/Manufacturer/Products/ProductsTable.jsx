@@ -10,14 +10,16 @@ import {
   Thead,
   Tr,
 } from "@/components/Table";
-import { useProducts } from "@/lib/app/product";
+import { useProductsByManufacturer } from "@/lib/app/product";
+import { deleteProduct } from "@/lib/app/product/requests";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 function productsTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const { products, isLoading, isError } = useProducts(50);
+  const { products, isLoading, isError } = useProductsByManufacturer();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -83,8 +85,10 @@ function productsTable() {
                               {product.category}
                             </div>
                           </Td>
-                          <Td>{product.price}</Td>
-                          <Td>{product.stock}</Td>
+                          <Td>
+                            {product.sellingPrice} | {product.costPrice}
+                          </Td>
+                          <Td>{product.inventory.quantity}</Td>
                           <Td>{product.status}</Td>
 
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
@@ -92,13 +96,18 @@ function productsTable() {
                               href="#"
                               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                               onClick={() =>
-                                router.push(`/admin/products/edit/${1}`)
+                                router.push(
+                                  `/manufacturer/products/edit/${product._id}`
+                                )
                               }
                             >
                               Edit
                             </button>
                             <button
-                              onClick={() => setShowDeleteModal(true)}
+                              onClick={() => {
+                                setShowDeleteModal(true);
+                                setSelectedProduct(product._id);
+                              }}
                               class="font-medium text-red-600 dark:text-red-500 hover:underline"
                             >
                               Remove
@@ -117,7 +126,10 @@ function productsTable() {
         {showDeleteModal && (
           <DeleteConfirmationModal
             onClose={() => setShowDeleteModal(false)}
-            heading="Are you sure you want to delete this product?"
+            message="Are you sure you want to delete this product?"
+            onConfirm={() => {
+              deleteProduct(selectedProduct);
+            }}
           />
         )}
       </div>

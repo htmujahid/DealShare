@@ -21,6 +21,16 @@ export function useAdminProducts() {
   };
 }
 
+export function useProductsByManufacturer() {
+  const { data, error } = useSWR(`/api/manufacturer/products`, fetcher);
+
+  return {
+    products: data,
+    error,
+    loading: !data && !error,
+  };
+}
+
 export function useCategoryProducts(category, page, limit) {
   const { data, error } = useSWR(
     category && (page || page === 0) && limit
@@ -38,6 +48,16 @@ export function useCategoryProducts(category, page, limit) {
 
 export function useProduct(id) {
   const { data, error } = useSWR(id ? `/api/products/${id}` : null, fetcher);
+
+  return {
+    product: data,
+    error,
+    loading: !data && !error,
+  };
+}
+
+export function useManufacturerProduct(id) {
+  const { data, error } = useSWR(`/api/manufacturer/products/${id}`, fetcher);
 
   return {
     product: data,
@@ -97,6 +117,16 @@ export function useSearchedProducts(searchTerm, page, limit) {
 
   return {
     products: data,
+    error,
+    loading: !data && !error,
+  };
+}
+
+export function useProductCategories() {
+  const { data, error } = useSWR(`/api/products/categories`, fetcher);
+
+  return {
+    categories: data,
     error,
     loading: !data && !error,
   };

@@ -18,6 +18,24 @@ export async function getOrders(limit) {
     .toArray();
 }
 
+export async function getOrdersByManufacturer(manufacturerId) {
+  return await db
+    .collection("orders")
+    .aggregate([
+      {
+        $match: {
+          userId: new ObjectId(manufacturerId),
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+    ])
+    .toArray();
+}
+
 export async function getAdminOrders() {
   return await db
     .collection("orders")

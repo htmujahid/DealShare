@@ -1,4 +1,4 @@
-import { getProduct } from "@/lib/api/db/product";
+import { editProduct, getProduct } from "@/lib/api/db/product";
 import { database } from "@/lib/api/middleware";
 import { ncRouteHandlerOpts } from "@/lib/api/nc";
 import { createRouter } from "next-connect";

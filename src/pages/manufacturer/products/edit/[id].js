@@ -1,4 +1,5 @@
 import { ManufacturerLayout } from "@/components/Layouts";
+import { userRoles } from "@/lib/app/user";
 import { ProductUpdate } from "@/sections/Manufacturer/Products";
 
 export default function edit() {
@@ -8,3 +9,5 @@ export default function edit() {
     </ManufacturerLayout>
   );
 }
+
+edit.routeProtector = [userRoles.MANUFACTURER];

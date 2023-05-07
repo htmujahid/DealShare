@@ -16,7 +16,7 @@ function ProductsSummary() {
 
           <PrimaryButton
             onClick={() => {
-              router.push("/admin/products/create");
+              router.push("/manufacturer/products/create");
             }}
           >
             Add New Product

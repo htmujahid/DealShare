@@ -1,6 +1,10 @@
+import { useSession } from "next-auth/react";
 import React from "react";
 
 function ManufacturerHeader() {
+  const { data: session } = useSession();
+
+  console.log(session);
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -34,7 +38,10 @@ function ManufacturerHeader() {
           </div>
           <div className="flex items-center">
             <div className="flex items-center ml-3">
-              Hi, <span className="ml-1 font-semibold">Adam</span>
+              Hi,{" "}
+              <span className="ml-1 font-semibold">
+                {session?.user?.firstName}
+              </span>
             </div>
           </div>
         </div>

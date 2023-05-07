@@ -9,6 +9,7 @@ import {
   SettingsIcon,
   LogoutIcon,
 } from "@/components/Assets";
+import { signOut } from "next-auth/react";
 
 const SIDEBAR_ITEMS = [
   {
@@ -26,11 +27,11 @@ const SIDEBAR_ITEMS = [
     icon: <OrderIcon />,
     path: "/manufacturer/orders",
   },
-  {
-    name: "Conversations",
-    icon: <ConversationIcon />,
-    path: "/manufacturer/conversations",
-  },
+  // {
+  //   name: "Conversations",
+  //   icon: <ConversationIcon />,
+  //   path: "/manufacturer/conversations",
+  // },
   {
     name: "Setting",
     icon: <SettingsIcon />,
@@ -66,7 +67,13 @@ function ManufacturerSidebar() {
         </ul>
         <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 ">
           <li>
-            <button className="flex items-center p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 w-full">
+            <button
+              className="flex items-center p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 w-full"
+              onClick={() => {
+                router.push("/");
+                signOut();
+              }}
+            >
               <LogoutIcon />
               <span className="ml-3">Logout</span>
             </button>

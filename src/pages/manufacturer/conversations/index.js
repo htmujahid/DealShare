@@ -1,4 +1,5 @@
 import { ManufacturerLayout } from "@/components/Layouts";
+import { userRoles } from "@/lib/app/user";
 import { Conversations } from "@/sections/Manufacturer/Conversations";
 import React from "react";
 
@@ -9,3 +10,5 @@ export default function index() {
     </ManufacturerLayout>
   );
 }
+
+index.routeProtector = [userRoles.MANUFACTURER];
