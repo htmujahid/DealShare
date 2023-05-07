@@ -11,14 +11,26 @@ import {
   Tr,
 } from "@/components/Table";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OrderUpdate from "./OrderUpdate";
+import { useAdminOrders } from "@/lib/app/order";
+import Link from "next/link";
 
 function OrdersTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
+  const { orders, isLoading, isError } = useAdminOrders();
+
   const router = useRouter();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error...</div>;
+  }
 
   return (
     <>
@@ -49,56 +61,78 @@ function OrdersTable() {
                       </Tr>
                     </Thead>
                     <Tbody className="bg-white divide-y divide-gray-200 -800">
-                      {Array(20)
-                        .fill(0)
-                        .map(() => (
-                          <Tr className="hover:bg-gray-100 -gray-700">
-                            <Td className="w-4 p-4">
-                              <div className="flex items-center">
-                                <input
-                                  id="checkbox-{{ .id }}"
-                                  aria-describedby="checkbox-1"
-                                  type="checkbox"
-                                  className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 -primary-600 -gray-800"
-                                />
-                                <label
-                                  for="checkbox-{{ .id }}"
-                                  className="sr-only"
-                                >
-                                  checkbox
-                                </label>
-                              </div>
-                            </Td>
-                            <Td>
-                              <div className="text-base font-semibold text-gray-900 ">
-                                John Doe
-                              </div>
-                              <div className="text-sm font-normal text-gray-500">
-                                johndoe@email.com
-                              </div>
-                            </Td>
-                            <Td>02-03-2023</Td>
-                            <Td>4000</Td>
-                            <Td>mark as completed</Td>
-                            <Td>published</Td>
+                      {orders?.map((order) => (
+                        <Tr className="hover:bg-gray-100 -gray-700">
+                          <Td className="w-4 p-4">
+                            <div className="flex items-center">
+                              <input
+                                id="checkbox-{{ .id }}"
+                                aria-describedby="checkbox-1"
+                                type="checkbox"
+                                className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 -primary-600 -gray-800"
+                              />
+                              <label
+                                for="checkbox-{{ .id }}"
+                                className="sr-only"
+                              >
+                                checkbox
+                              </label>
+                            </div>
+                          </Td>
+                          <Td>
+                            <div className="text-base font-semibold text-gray-900 ">
+                              {order.userId}
+                            </div>
+                            <div className="text-sm font-normal text-gray-500">
+                              {order.email}
+                            </div>
+                          </Td>
+                          <Td>
+                            {new Date(order.createdAt).toLocaleDateString()}
+                          </Td>
+                          <Td>
+                            {new Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            }).format(order.total)}
+                          </Td>
+                          <Td>
+                            {order.status === "pending" ? (
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                {order.status}
+                              </span>
+                            ) : order.status === "completed" ? (
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                {order.status}
+                              </span>
+                            ) : order.status === "cancelled" ? (
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                {order.status}
+                              </span>
+                            ) : (
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                {order.status}
+                              </span>
+                            )}
+                          </Td>
+                          <Td>{order.status}</Td>
 
-                            <Td className="p-4 space-x-2 whitespace-nowrap ">
-                              <button
-                                href="#"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                onClick={() => setShowUpdateModal(true)}
-                              >
-                                Edit
-                              </button>
-                              <button
-                                onClick={() => setShowDeleteModal(true)}
-                                class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                              >
-                                Remove
-                              </button>
-                            </Td>
-                          </Tr>
-                        ))}
+                          <Td className="p-4 space-x-2 whitespace-nowrap ">
+                            <Link
+                              href={`/admin/orders/${order.id}`}
+                              className="font-medium text-primary-600 dark:text-primary-500 hover:underline"
+                            >
+                              Detail
+                            </Link>
+                            <button
+                              onClick={() => setShowDeleteModal(true)}
+                              class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                            >
+                              Remove
+                            </button>
+                          </Td>
+                        </Tr>
+                      ))}
                     </Tbody>
                   </Table>
                 </div>

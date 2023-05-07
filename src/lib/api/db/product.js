@@ -11,7 +11,7 @@ export async function getRecentProducts(limit) {
       },
       {
         $lookup: {
-          from: "productMedia",
+          from: "productMedias",
           localField: "_id",
           foreignField: "productId",
           as: "media",
@@ -22,6 +22,101 @@ export async function getRecentProducts(limit) {
       },
       {
         $limit: limit,
+      },
+    ])
+    .toArray();
+}
+
+export async function getAdminProducts() {
+  return await db
+    .collection("products")
+    .aggregate([
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
+        $lookup: {
+          from: "inventories",
+          localField: "_id",
+          foreignField: "productId",
+          as: "inventory",
+        },
+      },
+      {
+        $unwind: "$inventory",
+      },
+      {
+        $lookup: {
+          from: "productMedias",
+          localField: "_id",
+          foreignField: "productId",
+          as: "media",
+        },
+      },
+      {
+        $unwind: "$media",
+      },
+      // {
+      //   $lookup: {
+      //     from: "feedbacks",
+      //     localField: "_id",
+      //     foreignField: "productId",
+      //     as: "feedback",
+      //   },
+      // },
+      // {
+      //   $unwind: "$feedback",
+      // },
+      // {
+      //   $lookup: {
+      //     from: "questions",
+      //     localField: "_id",
+      //     foreignField: "productId",
+      //     as: "question",
+      //   },
+      // },
+      // {
+      //   $unwind: "$question",
+      // },
+    ])
+    .toArray();
+}
+
+export async function getProductsByManufacturer(manufacturerId) {
+  return await db
+    .collection("products")
+    .find({
+      manufacturerId,
+    })
+    .aggregate([
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
+        $lookup: {
+          from: "inventories",
+          localField: "_id",
+          foreignField: "productId",
+          as: "inventory",
+        },
+      },
+      {
+        $unwind: "$inventory",
+      },
+      {
+        $lookup: {
+          from: "productMedias",
+          localField: "_id",
+          foreignField: "productId",
+          as: "media",
+        },
+      },
+      {
+        $unwind: "$media",
       },
     ])
     .toArray();
@@ -38,7 +133,7 @@ export async function getRecentProductsByCategory(category, page, limit) {
       },
       {
         $lookup: {
-          from: "productMedia",
+          from: "productMedias",
           localField: "_id",
           foreignField: "productId",
           as: "media",
@@ -82,7 +177,7 @@ export async function getProduct(id) {
       },
       {
         $lookup: {
-          from: "productMedia",
+          from: "productMedias",
           localField: "_id",
           foreignField: "productId",
           as: "media",
@@ -108,7 +203,7 @@ export async function getRelatedProducts(category, limit) {
       },
       {
         $lookup: {
-          from: "productMedia",
+          from: "productMedias",
           localField: "_id",
           foreignField: "productId",
           as: "media",
@@ -142,7 +237,7 @@ export async function searchProducts(query, page, limit) {
       },
       {
         $lookup: {
-          from: "productMedia",
+          from: "productMedias",
           localField: "_id",
           foreignField: "productId",
           as: "media",

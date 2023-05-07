@@ -38,11 +38,11 @@ const SIDEBAR_ITEMS = [
     icon: <OrderIcon />,
     path: "/admin/orders",
   },
-  {
-    name: "Conversations",
-    icon: <ConversationIcon />,
-    path: "/admin/conversations",
-  },
+  // {
+  //   name: "Conversations",
+  //   icon: <ConversationIcon />,
+  //   path: "/admin/conversations",
+  // },
   {
     name: "Setting",
     icon: <SettingsIcon />,

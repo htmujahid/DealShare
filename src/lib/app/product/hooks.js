@@ -11,6 +11,16 @@ export function useProducts(limit) {
   };
 }
 
+export function useAdminProducts() {
+  const { data, error } = useSWR(`/api/admin/products`, fetcher);
+
+  return {
+    products: data,
+    error,
+    loading: !data && !error,
+  };
+}
+
 export function useCategoryProducts(category, page, limit) {
   const { data, error } = useSWR(
     category && (page || page === 0) && limit

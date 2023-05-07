@@ -10,14 +10,15 @@ import {
   Thead,
   Tr,
 } from "@/components/Table";
-import { useProducts } from "@/lib/app/product";
+import { useAdminProducts } from "@/lib/app/product";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 function productsTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const { products, isLoading, isError } = useProducts(50);
+  const { products, isLoading, isError } = useAdminProducts();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -88,15 +89,12 @@ function productsTable() {
                           <Td>{product.status}</Td>
 
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
-                            <button
-                              href="#"
-                              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                              onClick={() =>
-                                router.push(`/admin/products/edit/${1}`)
-                              }
+                            <Link
+                              href={`/admin/products/${product.id}`}
+                              className="font-medium text-primary-600 dark:text-primary-500 hover:underline"
                             >
-                              Edit
-                            </button>
+                              Detail
+                            </Link>
                             <button
                               onClick={() => setShowDeleteModal(true)}
                               class="font-medium text-red-600 dark:text-red-500 hover:underline"

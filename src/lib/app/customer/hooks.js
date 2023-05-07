@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { fetcher } from "../fetch";
 
 export function useCustomers() {
-  const { data, error } = useSWR("/api/customers", fetcher);
+  const { data, error } = useSWR("/api/admin/customers", fetcher);
 
   return {
     customers: data,

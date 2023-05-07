@@ -10,7 +10,7 @@ function Button({
 }) {
   return (
     <button
-      className={`px-4 py-3 border rounded-xl font-bold flex items-center ${
+      className={`px-4 py-2 border rounded-xl font-semibold text-center ${
         variant == "primary" ? "bg-primary" : "bg-gray-100"
       } ${className}`}
       {...props}
