@@ -1,4 +1,5 @@
 import { AdminLayout } from "@/components/Layouts";
+import { userRoles } from "@/lib/app/user";
 import { ProductNew } from "@/sections/Admin/Products";
 
 export default function create() {
@@ -8,3 +9,4 @@ export default function create() {
     </AdminLayout>
   );
 }
+index.routeProtector = [userRoles.ADMIN];

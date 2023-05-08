@@ -1,4 +1,4 @@
-import { Search } from "@/components/Form";
+import { Input, Search } from "@/components/Form";
 import { DeleteConfirmationModal } from "@/components/Modal";
 import { PaginationCount } from "@/components/Pagination";
 import {
@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import CustomerUpdate from "./CustomerUpdate";
 import { useCustomers } from "@/lib/app/customer";
-import { deleteUser } from "@/lib/app/user";
+import { deleteUser, verifyUser } from "@/lib/app/user";
 
 function CustomersTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -54,6 +54,7 @@ function CustomersTable() {
                         <Th scope="col">Email</Th>
                         {/* <Th scope="col">Orders</Th>
                         <Th scope="col">Orders Total</Th> */}
+                        <Th scope="col">Status</Th>
                         <Th scope="col">Customer Since</Th>
                         <Th scope="col"></Th>
                       </Tr>
@@ -83,6 +84,17 @@ function CustomersTable() {
                             </div>
                           </Td>
                           <Td>{customer.email}</Td>
+                          <Td>
+                            <Input
+                              type="checkbox"
+                              checked={customer.verified}
+                              onChange={() =>
+                                verifyUser(customer._id, {
+                                  verified: customer.verified,
+                                })
+                              }
+                            />
+                          </Td>
                           {/* <Td>{customer.orders}</Td>
                           <Td>{customer.ordersTotal}</Td> */}
                           <Td>

@@ -8,7 +8,7 @@ import { SearchContextProvider } from "@/components/ContextProviders";
 function CustomerHeader() {
   return (
     <>
-      <CustomerTobNavbar />
+      {/* <CustomerTobNavbar /> */}
       <PrimaryLogo />
       <SearchContextProvider>
         <CustomerSearchBar />

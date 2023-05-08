@@ -29,3 +29,10 @@ export async function deleteUser(id) {
     method: "DELETE",
   });
 }
+
+export async function verifyUser(id, data) {
+  return await fetcher(`/api/admin/users/${id}/verify`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}

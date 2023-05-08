@@ -1,13 +1,32 @@
 import { PrimaryButton } from "@/components/Buttons";
 import { StatsSummary } from "@/components/Widgets";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ManufacturerNew from "./ManufacturerNew";
 import { ActivityIcon, ManufacturerIcon } from "@/components/Assets";
+import { useManufacturers } from "@/lib/app/manufacturer";
 
 function ManufacturersSummary() {
   const router = useRouter();
+  const { manufacturers, isLoading, isError } = useManufacturers();
+
+  const [allManufacturers, setAllManufacturers] = useState(0);
+  const [newManufacturers, setNewManufacturers] = useState(0);
+
   const [showAddModal, setShowAddModal] = useState(false);
+
+  useEffect(() => {
+    if (manufacturers) {
+      setAllManufacturers(manufacturers.length);
+      setNewManufacturers(() => {
+        manufacturers.filter(
+          (manufacturer) =>
+            new Date(manufacturer.createdAt) > new Date() - 86400000 * 7
+        ).length;
+      });
+    }
+  }, [manufacturers]);
+
   return (
     <>
       <div>
@@ -28,17 +47,17 @@ function ManufacturersSummary() {
           <StatsSummary
             icon={<ManufacturerIcon />}
             value={[
-              { title: "All Manufacturers", value: 350 },
-              { title: "Active Manufacturers", value: 325 },
+              { title: "All Manufacturers", value: allManufacturers },
+              { title: "New Manufacturers", value: newManufacturers ?? 0 },
             ]}
           />
-          <StatsSummary
+          {/* <StatsSummary
             icon={<ActivityIcon />}
             value={[
-              { title: "New Manufacturers", value: 13 },
+              { title: "Active Manufacturers", value: 325 },
               { title: "Returning Manufacturers", value: 0 },
             ]}
-          />
+          /> */}
           {/* <StatsSummary
             value={[
               { title: "1 Star Rating", value: 3 },

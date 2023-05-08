@@ -83,6 +83,26 @@ export async function editUser(id, updatedData) {
   return matchedCount;
 }
 
+export async function verifyUser(id) {
+  const { matchedCount } = await db.collection("users").updateOne(
+    {
+      _id: new ObjectId(id),
+    },
+    { $set: { verified: true } }
+  );
+  return matchedCount;
+}
+
+export async function unverifyUser(id) {
+  const { matchedCount } = await db.collection("users").updateOne(
+    {
+      _id: new ObjectId(id),
+    },
+    { $set: { verified: false } }
+  );
+  return matchedCount;
+}
+
 export async function addSuperAdmin() {
   const password = await bcrypt.hash(process.env.SEED_ADMIN_PASS, 10);
   const user = {

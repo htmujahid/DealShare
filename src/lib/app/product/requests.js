@@ -27,3 +27,11 @@ export async function deleteProductSudo(productId) {
     method: "DELETE",
   });
 }
+
+export async function updateInventory(productId, data) {
+  return await fetcher(`/api/manufacturer/products/${productId}/inventory`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+}

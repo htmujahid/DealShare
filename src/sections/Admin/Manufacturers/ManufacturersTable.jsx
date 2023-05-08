@@ -1,4 +1,4 @@
-import { Search } from "@/components/Form";
+import { Input, Search } from "@/components/Form";
 import { DeleteConfirmationModal } from "@/components/Modal";
 import { PaginationCount } from "@/components/Pagination";
 import {
@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import ManufacturerUpdate from "./ManufacturerUpdate";
 import { useManufacturers } from "@/lib/app/manufacturer";
-import { deleteUser } from "@/lib/app/user";
+import { deleteUser, verifyUser } from "@/lib/app/user";
 
 function ManufacturersTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -55,6 +55,7 @@ function ManufacturersTable() {
                         {/* <Th scope="col">Orders</Th>
                         <Th scope="col">Orders Total</Th> */}
                         <Th scope="col">Manufacturer Since</Th>
+                        <Th scope="col">Status</Th>
                         <Th scope="col"></Th>
                       </Tr>
                     </Thead>
@@ -93,6 +94,17 @@ function ManufacturersTable() {
                               month: "long",
                               day: "numeric",
                             })}
+                          </Td>
+                          <Td>
+                            <Input
+                              type="checkbox"
+                              checked={manufacturer.verified}
+                              onChange={() =>
+                                verifyUser(manufacturer._id, {
+                                  verified: manufacturer.verified,
+                                })
+                              }
+                            />
                           </Td>
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
                             {/* <button

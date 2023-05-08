@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import React from "react";
 
-function ManufacturerHeader() {
+function ManufacturerHeader({ setIsSidebarOpen }) {
   const { data: session } = useSession();
 
   console.log(session);
@@ -11,16 +11,13 @@ function ManufacturerHeader() {
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-start">
             <button
-              data-drawer-target="logo-sidebar"
-              data-drawer-toggle="logo-sidebar"
-              aria-controls="logo-sidebar"
+              onClick={() => setIsSidebarOpen((pre) => !pre)}
               type="button"
-              className="inline-flex items-center px-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200   "
+              className="inline-flex items-center px-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             >
               <span className="sr-only">Open sidebar</span>
               <svg
                 className="w-6 h-6"
-                aria-hidden="true"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"

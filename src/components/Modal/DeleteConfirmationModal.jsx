@@ -3,7 +3,7 @@ import { AlertButton, DarkButton } from "../Buttons";
 
 function DeleteConfirmationModal({ onClose, message, onConfirm }) {
   return (
-    <ModalContainer maxWidth={600}>
+    <ModalContainer maxWidth={500}>
       <ModalHeader heading="Delete Item" onClose={onClose} />
       <ModalBody className="flex items-center">{message}</ModalBody>
       <ModalFooter>

@@ -1,11 +1,33 @@
 import { ProductIcon, StarIcon, TrendingDownIcon } from "@/components/Assets";
 import { PrimaryButton } from "@/components/Buttons";
 import { StatsSummary } from "@/components/Widgets";
+import { useProductsByManufacturer } from "@/lib/app/product";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function ProductsSummary() {
   const router = useRouter();
+  const { products, isLoading, isError } = useProductsByManufacturer();
+  const [allProducts, setAllProducts] = useState(0);
+  const [activeProducts, setActiveProducts] = useState(0);
+  const [lowStockProducts, setLowStockProducts] = useState(0);
+  const [outOfStockProducts, setOutOfStockProducts] = useState(0);
+
+  useEffect(() => {
+    if (products) {
+      setAllProducts(products.length);
+      setActiveProducts(
+        products.filter((product) => product.status === "Published").length
+      );
+      setLowStockProducts(
+        products.filter((product) => product.inventory.quantity <= 10).length
+      );
+      setOutOfStockProducts(
+        products.filter((product) => product.inventory.quantity == 0).length
+      );
+    }
+  }, [products]);
+
   return (
     <>
       <div>
@@ -27,15 +49,15 @@ function ProductsSummary() {
             icon={<ProductIcon />}
             type="single"
             value={[
-              { title: "All Products", value: 350 },
-              { title: "Active Products", value: 325 },
+              { title: "All Products", value: allProducts },
+              { title: "Active Products", value: activeProducts },
             ]}
           />
           <StatsSummary
             icon={<TrendingDownIcon />}
             value={[
-              { title: "Low Stock Alert", value: 13 },
-              { title: "Out of Stock", value: 0 },
+              { title: "Low Stock Alert", value: lowStockProducts },
+              { title: "Out of Stock", value: outOfStockProducts },
             ]}
           />
           <StatsSummary

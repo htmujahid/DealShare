@@ -1,5 +1,6 @@
 import { Search } from "@/components/Form";
 import { DeleteConfirmationModal } from "@/components/Modal";
+import UpdateInventoryModal from "@/components/Modal/UpdateInventoryModal";
 import { PaginationCount } from "@/components/Pagination";
 import {
   Table,
@@ -17,6 +18,8 @@ import React, { useState } from "react";
 
 function productsTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showUpdateInventoryModal, setShowUpdateInventoryModal] =
+    useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const { products, isLoading, isError } = useProductsByManufacturer();
@@ -93,7 +96,15 @@ function productsTable() {
 
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
                             <button
-                              href="#"
+                              onClick={() => {
+                                setShowUpdateInventoryModal(true);
+                                setSelectedProduct(product);
+                              }}
+                              className="font-medium hover:underline"
+                            >
+                              Inventory
+                            </button>
+                            <button
                               className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                               onClick={() =>
                                 router.push(
@@ -106,7 +117,7 @@ function productsTable() {
                             <button
                               onClick={() => {
                                 setShowDeleteModal(true);
-                                setSelectedProduct(product._id);
+                                setSelectedProduct(product);
                               }}
                               className="font-medium text-red-600 dark:text-red-500 hover:underline"
                             >
@@ -123,12 +134,18 @@ function productsTable() {
           </div>
           <PaginationCount />
         </TableContainer>
+        {showUpdateInventoryModal && (
+          <UpdateInventoryModal
+            onClose={() => setShowUpdateInventoryModal(false)}
+            product={selectedProduct}
+          />
+        )}
         {showDeleteModal && (
           <DeleteConfirmationModal
             onClose={() => setShowDeleteModal(false)}
             message="Are you sure you want to delete this product?"
             onConfirm={() => {
-              deleteProduct(selectedProduct);
+              deleteProduct(selectedProduct._id);
             }}
           />
         )}

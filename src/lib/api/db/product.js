@@ -143,7 +143,7 @@ export async function getProduct(id) {
     .aggregate([
       {
         $match: {
-          _id: id,
+          _id: new ObjectId(id),
         },
       },
       {
@@ -155,7 +155,10 @@ export async function getProduct(id) {
         },
       },
       {
-        $unwind: "$media",
+        $unwind: {
+          path: "$media",
+          preserveNullAndEmptyArrays: true,
+        },
       },
     ])
     .toArray();
@@ -316,4 +319,18 @@ export async function deleteProduct(id) {
   return await db.collection("products").deleteOne({
     _id: new ObjectId(id),
   });
+}
+
+export async function updateInventory(productId, inventory) {
+  return await db.collection("inventories").updateOne(
+    {
+      productId: new ObjectId(productId),
+    },
+    {
+      $set: {
+        quantity: inventory.quantity,
+        modifiedAt: new Date(),
+      },
+    }
+  );
 }

@@ -17,7 +17,7 @@ function CustomersSummary() {
       setAllCustomers(customers.length);
       setNewCustomers(() => {
         customers.filter(
-          (customer) => new Date(customer.createdAt) < new Date() - 88600 * 7
+          (customer) => new Date(customer.createdAt) > new Date() - 86400000 * 7
         ).length;
       });
     }
@@ -45,16 +45,16 @@ function CustomersSummary() {
             icon={<CustomerIcon />}
             value={[
               { title: "All Customers", value: allCustomers },
-              { title: "New Customers", value: newCustomers },
+              { title: "New Customers", value: newCustomers ?? 0 },
             ]}
           />
-          <StatsSummary
+          {/* <StatsSummary
             icon={<ActivityIcon />}
             value={[
               { title: "Active Customers", value: 325 },
               { title: "Returning Customers", value: 0 },
             ]}
-          />
+          /> */}
           {/* <StatsSummary
             icon={<ActivityIcon />}
             value={[

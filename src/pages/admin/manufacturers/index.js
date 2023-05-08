@@ -1,4 +1,5 @@
 import { AdminLayout } from "@/components/Layouts";
+import { userRoles } from "@/lib/app/user";
 import {
   ManufacturersSummary,
   ManufacturersTable,
@@ -13,3 +14,4 @@ export default function index() {
     </AdminLayout>
   );
 }
+index.routeProtector = [userRoles.ADMIN];

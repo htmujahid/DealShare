@@ -11,6 +11,7 @@ import {
   SettingsIcon,
   LogoutIcon,
 } from "@/components/Assets";
+import { signOut } from "next-auth/react";
 
 const SIDEBAR_ITEMS = [
   {
@@ -49,14 +50,16 @@ const SIDEBAR_ITEMS = [
     path: "/admin/setting",
   },
 ];
-function AdminSidebar() {
+function AdminSidebar({ isSidebarOpen }) {
   const router = useRouter();
   const { pathname } = router;
 
   return (
     <aside
       id="logo-sidebar"
-      className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
+      className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 ${
+        isSidebarOpen ? "translate-x-0" : ""
+      }`}
       aria-label="Sidebar"
     >
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white">
@@ -77,7 +80,10 @@ function AdminSidebar() {
         </ul>
         <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 ">
           <li>
-            <button className="flex items-center p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 w-full">
+            <button
+              className="flex items-center p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 w-full"
+              onClick={() => signOut()}
+            >
               <LogoutIcon />
               <span className="ml-3">Logout</span>
             </button>
