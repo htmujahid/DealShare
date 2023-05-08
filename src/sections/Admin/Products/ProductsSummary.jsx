@@ -14,15 +14,15 @@ function ProductsSummary() {
             Products Summary
           </h1>
 
-          <PrimaryButton
+          {/* <PrimaryButton
             onClick={() => {
               router.push("/admin/products/create");
             }}
           >
             Add New Product
-          </PrimaryButton>
+          </PrimaryButton> */}
         </div>
-        <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
+        {/* <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
           <StatsSummary
             icon={<ProductIcon />}
             type="single"
@@ -45,7 +45,7 @@ function ProductsSummary() {
               { title: "5 Star Rating", value: 5 },
             ]}
           />
-        </div>
+        </div> */}
       </div>
     </>
   );

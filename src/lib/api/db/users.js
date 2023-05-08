@@ -95,3 +95,9 @@ export async function addSuperAdmin() {
   };
   return await db.collection("users").insertOne(user);
 }
+
+export async function deleteUser(id) {
+  return await db.collection("users").deleteOne({
+    _id: new ObjectId(id),
+  });
+}

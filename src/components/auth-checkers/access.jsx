@@ -7,7 +7,7 @@ function Access({ children, waitContent = null, access }) {
   const router = useRouter();
   const user = session?.user;
 
-  //If there are no access defined for the page, allow the page to be rendered
+  //If there are no access defined htmlFor the page, allow the page to be rendered
   if (access == undefined) {
     return children;
   }

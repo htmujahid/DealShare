@@ -116,7 +116,7 @@ function BillingInfo() {
                 Additional Information
               </h5>
               <p className="pb-1 text-sm text-gray-500">
-                Need something else? We will make it for you
+                Need something else? We will make it htmlFor you
               </p>
             </div>
             <div className="mb-16">

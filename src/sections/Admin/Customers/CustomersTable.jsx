@@ -13,10 +13,12 @@ import {
 import React, { useState } from "react";
 import CustomerUpdate from "./CustomerUpdate";
 import { useCustomers } from "@/lib/app/customer";
+import { deleteUser } from "@/lib/app/user";
 
 function CustomersTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [activeCustomer, setActiveCustomer] = useState(null);
 
   const { customers, isLoading, isError } = useCustomers();
 
@@ -58,7 +60,7 @@ function CustomersTable() {
                     </Thead>
                     <Tbody className="bg-white divide-y divide-gray-200 -800">
                       {customers?.map((customer) => (
-                        <Tr className="hover:bg-gray-100">
+                        <Tr className="hover:bg-gray-100" key={customer._id}>
                           <Td className="w-4 p-4">
                             <div className="flex items-center">
                               <input
@@ -68,7 +70,7 @@ function CustomersTable() {
                                 className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 -primary-600 -gray-800"
                               />
                               <label
-                                for="checkbox-{{ .id }}"
+                                htmlFor="checkbox-{{ .id }}"
                                 className="sr-only"
                               >
                                 checkbox
@@ -94,16 +96,19 @@ function CustomersTable() {
                             )}
                           </Td>
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
-                            <button
+                            {/* <button
                               href="#"
-                              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                               onClick={() => setShowUpdateModal(true)}
                             >
                               Edit
-                            </button>
+                            </button> */}
                             <button
-                              onClick={() => setShowDeleteModal(true)}
-                              class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                              onClick={() => {
+                                setActiveCustomer(customer._id);
+                                setShowDeleteModal(true);
+                              }}
+                              className="font-medium text-red-600 dark:text-red-500 hover:underline"
                             >
                               Remove
                             </button>
@@ -121,6 +126,9 @@ function CustomersTable() {
         {showDeleteModal && (
           <DeleteConfirmationModal
             onClose={() => setShowDeleteModal(false)}
+            onConfirm={() => {
+              deleteUser(activeCustomer);
+            }}
             message="Are you sure you want to delete this customer?"
           />
         )}

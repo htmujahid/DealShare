@@ -7,7 +7,7 @@ export default function BlockLoader() {
         visible={true}
         height="80"
         width="80"
-        ariaLabel="blocks-loading"
+        aria-label="blocks-loading"
       />
     </div>
   );

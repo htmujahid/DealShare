@@ -131,7 +131,7 @@ function ProductUpdate() {
           <div className="w-full h-96 bg-gray-100 rounded-xl mt-4 flex items-center justify-center">
             <div className="text-center">
               <p className="text-blue-500">Upload Image</p>
-              <p>Upload a cover image for your product.</p>
+              <p>Upload a cover image htmlFor your product.</p>
               <p>File Format jpeg, png Recommened Size 600x600 (1:1)</p>
             </div>
           </div>

@@ -8,7 +8,7 @@ export default function BlockLoader() {
         width="20"
         radius="15"
         color="#000000"
-        ariaLabel="three-dots-loading"
+        aria-label="three-dots-loading"
         wrapperStyle={{}}
         wrapperClassName=""
         visible={true}

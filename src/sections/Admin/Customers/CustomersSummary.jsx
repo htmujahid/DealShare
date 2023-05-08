@@ -1,12 +1,28 @@
 import { PrimaryButton } from "@/components/Buttons";
 import { StatsSummary } from "@/components/Widgets";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomerNew from "./CustomerNew";
 import { ActivityIcon, CustomerIcon } from "@/components/Assets";
+import { useCustomers } from "@/lib/app/customer";
 
 function CustomersSummary() {
   const router = useRouter();
+  const { customers, isLoading, isError } = useCustomers();
+  const [allCustomers, setAllCustomers] = useState(0);
+  const [newCustomers, setNewCustomers] = useState(0);
+
+  useEffect(() => {
+    if (customers) {
+      setAllCustomers(customers.length);
+      setNewCustomers(() => {
+        customers.filter(
+          (customer) => new Date(customer.createdAt) < new Date() - 88600 * 7
+        ).length;
+      });
+    }
+  }, [customers]);
+
   const [showAddModal, setShowAddModal] = useState(false);
   return (
     <>
@@ -28,14 +44,14 @@ function CustomersSummary() {
           <StatsSummary
             icon={<CustomerIcon />}
             value={[
-              { title: "All Customers", value: 350 },
-              { title: "Active Customers", value: 325 },
+              { title: "All Customers", value: allCustomers },
+              { title: "New Customers", value: newCustomers },
             ]}
           />
           <StatsSummary
             icon={<ActivityIcon />}
             value={[
-              { title: "New Customers", value: 13 },
+              { title: "Active Customers", value: 325 },
               { title: "Returning Customers", value: 0 },
             ]}
           />

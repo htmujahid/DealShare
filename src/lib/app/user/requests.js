@@ -23,3 +23,9 @@ export async function updatePassword(data) {
     body: JSON.stringify(data),
   });
 }
+
+export async function deleteUser(id) {
+  return await fetcher(`/api/admin/users/${id}`, {
+    method: "DELETE",
+  });
+}

@@ -21,3 +21,9 @@ export async function deleteProduct(productId) {
     method: "DELETE",
   });
 }
+
+export async function deleteProductSudo(productId) {
+  return await fetcher(`/api/admin/products/${productId}`, {
+    method: "DELETE",
+  });
+}

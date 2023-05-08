@@ -95,7 +95,7 @@ function OrderDetail() {
                                   className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 -primary-600 -gray-800"
                                 />
                                 <label
-                                  for="checkbox-{{ .id }}"
+                                  htmlFor="checkbox-{{ .id }}"
                                   className="sr-only"
                                 >
                                   checkbox

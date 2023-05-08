@@ -60,7 +60,10 @@ export async function getAdminProducts() {
         },
       },
       {
-        $unwind: "$media",
+        $unwind: {
+          path: "$media",
+          preserveNullAndEmptyArrays: true,
+        },
       },
     ])
     .toArray();

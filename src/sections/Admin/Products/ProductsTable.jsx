@@ -11,12 +11,14 @@ import {
   Tr,
 } from "@/components/Table";
 import { useAdminProducts } from "@/lib/app/product";
+import { deleteProductSudo } from "@/lib/app/product/requests";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 function productsTable() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [activeProduct, setActiveProduct] = useState(null);
 
   const { products, isLoading, isError } = useAdminProducts();
 
@@ -69,7 +71,7 @@ function productsTable() {
                                 className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 -primary-600 -gray-800"
                               />
                               <label
-                                for="checkbox-{{ .id }}"
+                                htmlFor="checkbox-{{ .id }}"
                                 className="sr-only"
                               >
                                 checkbox
@@ -84,20 +86,25 @@ function productsTable() {
                               {product.category}
                             </div>
                           </Td>
-                          <Td>{product.price}</Td>
-                          <Td>{product.stock}</Td>
+                          <Td>
+                            {product.sellingPrice} | {product.costPrice}
+                          </Td>
+                          <Td>{product.inventory.quantity}</Td>
                           <Td>{product.status}</Td>
 
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
-                            <Link
+                            {/* <Link
                               href={`/admin/products/${product.id}`}
                               className="font-medium text-primary-600 dark:text-primary-500 hover:underline"
                             >
                               Detail
-                            </Link>
+                            </Link> */}
                             <button
-                              onClick={() => setShowDeleteModal(true)}
-                              class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                              onClick={() => {
+                                setActiveProduct(product._id);
+                                setShowDeleteModal(true);
+                              }}
+                              className="font-medium text-red-600 dark:text-red-500 hover:underline"
                             >
                               Remove
                             </button>
@@ -115,6 +122,9 @@ function productsTable() {
         {showDeleteModal && (
           <DeleteConfirmationModal
             onClose={() => setShowDeleteModal(false)}
+            onConfirm={() => {
+              deleteProductSudo(activeProduct);
+            }}
             heading="Are you sure you want to delete this product?"
           />
         )}

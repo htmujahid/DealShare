@@ -17,11 +17,10 @@ function ProductCard({ product }) {
   return (
     <Link className="col-span-1" href={`/product/${product?._id}`}>
       <div className="p-4 border border-primary-light rounded-xl col-span-4">
-        <div className="rounded-x bg-neutral flex items-center">
+        <div className="rounded-xl flex items-center ">
           <img
-            className="rounded-xl w-full "
+            className="w-full h-48"
             src={product?.media?.mediaURL[0] ?? ""}
-            alt="abc"
           />
         </div>
         <div className="pt-4">
@@ -30,7 +29,7 @@ function ProductCard({ product }) {
             {product?.description}
           </p> */}
           <div className="pb-2">
-            <p className="text-2xl font-bold">${product?.price}</p>
+            <p className="text-2xl font-bold">${product?.sellingPrice}</p>
           </div>
           <div className="flex justify-between items-center">
             {showConfirmationModal && (

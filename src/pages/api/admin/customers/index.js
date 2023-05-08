@@ -9,8 +9,8 @@ router.use(database);
 
 router.get(async (req, res) => {
   try {
-    const products = await getUsersByRole("customer");
-    return res.status(200).json(products);
+    const users = await getUsersByRole("customer");
+    return res.status(200).json(users);
   } catch (e) {
     return res.status(500).end();
   }
