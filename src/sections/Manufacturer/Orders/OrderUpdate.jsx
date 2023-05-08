@@ -1,10 +1,10 @@
 import { GrayButton, PrimaryButton } from "@/components/Buttons";
 import { Input, Select } from "@/components/Form";
 import {
-  ModalButtons,
+  ModalFooter,
   ModalContainer,
-  ModalContent,
-  ModalTitle,
+  ModalBody,
+  ModalHeader,
 } from "@/components/Modal";
 import React from "react";
 
@@ -65,13 +65,13 @@ const PROCUCTS = [
 function OrderUpdate({ setShowUpdateModal }) {
   return (
     <ModalContainer>
-      <ModalTitle title="Add New Order" close={setShowUpdateModal} />
-      <ModalContent>
+      <ModalHeader title="Add New Order" close={setShowUpdateModal} />
+      <ModalBody>
         <Select label="Customer" options={CUSTOMERS} className="w-full" />
         <Select label="Customer" options={PROCUCTS} className="w-full" />
         <Input label="Quantity" type="number" className="w-full" min="0" />
-      </ModalContent>
-      <ModalButtons>
+      </ModalBody>
+      <ModalFooter>
         <PrimaryButton>Create Order</PrimaryButton>
         <GrayButton
           onClick={() => {
@@ -80,7 +80,7 @@ function OrderUpdate({ setShowUpdateModal }) {
         >
           Cancel
         </GrayButton>
-      </ModalButtons>
+      </ModalFooter>
     </ModalContainer>
   );
 }

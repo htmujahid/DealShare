@@ -9,4 +9,5 @@ export default function create() {
     </AdminLayout>
   );
 }
-index.routeProtector = [userRoles.ADMIN];
+
+create.routeProtector = [userRoles.ADMIN];

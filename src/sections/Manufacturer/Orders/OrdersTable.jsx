@@ -1,5 +1,5 @@
 import { Search } from "@/components/Form";
-import { ModalDelete } from "@/components/Modal";
+import { DeleteConfirmationModal } from "@/components/Modal";
 import { PaginationCount } from "@/components/Pagination";
 import {
   Table,
@@ -108,7 +108,7 @@ function OrdersTable() {
           <PaginationCount />
         </TableContainer>
         {showDeleteModal && (
-          <ModalDelete
+          <DeleteConfirmationModal
             setShowDeleteModal={setShowDeleteModal}
             title="Are you sure you want to delete this order?"
           />
