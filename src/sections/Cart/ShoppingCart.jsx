@@ -1,19 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button } from "@/components/Form";
 import { ProductSummaryCard } from "@/components/Card";
 import { OrderSummary } from "../Checkout";
 import Link from "next/link";
 import { CartContext } from "@/components/ContextProviders";
+import { useRouter } from "next/router";
 
 function ShoppingCart() {
-  const { cartItems } = useContext(CartContext);
+  const router = useRouter();
+  const { emptyCart } = router.query;
+  const { setCartItems, cartItems } = useContext(CartContext);
+
+  useEffect(() => {
+    if (emptyCart) {
+      setCartItems([]);
+      router.replace("/");
+    }
+  }, [emptyCart]);
 
   return cartItems.length > 0 ? (
     <div className="flex justify-between my-16">
-      <div className="flex w-3/5 justify-start">
-        <div className="w-full border rounded-xl py-8 px-4">
+      <div className="flex justify-start w-3/5">
+        <div className="w-full px-4 py-8 border rounded-xl">
           <div className="mb-10">
-            <h5 className="text-2xl font-bold pb-1">Shopping Cart</h5>
+            <h5 className="pb-1 text-2xl font-bold">Shopping Cart</h5>
             <p className="pb-1">
               Price can change depending on shipping method and taxes of your
               state.

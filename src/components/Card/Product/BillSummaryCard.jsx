@@ -4,7 +4,7 @@ function BillSummaryCard({ product }) {
       <div>
         <div className="w-[100px] max-h-[75px] bg-gray-100 rounded-xl mb-4">
           <img
-            src={product?.media.mediaURL[0]}
+            src={product?.media?.mediaURL[0]}
             className="h-full w-full max-h-[75px]"
             alt={product?.name}
           />
@@ -12,7 +12,7 @@ function BillSummaryCard({ product }) {
       </div>
       <div className="flex-1">
         <p className="font-bold">{product?.name}</p>
-        <div className="text-sm text-gray-500 grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-2 gap-1 text-sm text-gray-500">
           <p className="w-20">Type</p>
           <p className="w-20">{product?.category}</p>
           <p className="w-20">Quantity</p>
@@ -21,7 +21,7 @@ function BillSummaryCard({ product }) {
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex-1">
-          <h4 className="text-2xl text-primary-dark font-bold">
+          <h4 className="text-2xl font-bold text-primary-dark">
             {product?.price} USD
           </h4>
           <p className="text-xs text-gray-500 line-through">

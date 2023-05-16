@@ -1,6 +1,20 @@
-import bcrypt from "bcryptjs";
 import { ObjectId } from "mongodb";
 import { db } from "../middleware";
+
+export async function addOrder(order) {
+  const { insertedId } = await db.collection("orders").insertOne(order);
+  return insertedId;
+}
+
+export async function updateOrder(id, updatedData) {
+  const updatedOrder = { ...updatedData, modifiedAt: new Date() };
+
+  const { matchedCount } = await db
+    .collection("orders")
+    .updateOne({ _id: new ObjectId(id) }, { $set: updatedOrder });
+
+  return matchedCount;
+}
 
 export async function getOrders(limit) {
   return await db
