@@ -59,10 +59,10 @@ function ProductSummaryCard({ product }) {
       <div className="flex flex-col gap-2">
         <div className="flex-1">
           <h4 className="text-2xl font-bold text-primary-dark">
-            {product?.price} USD
+            {product?.sellingPrice} USD
           </h4>
           <p className="text-xs text-gray-500 line-through">
-            {parseFloat(product?.price) + 50} USD
+            {parseFloat(product?.sellingPrice) + 50} USD
           </p>
         </div>
         <div className="px-4 py-3 text-sm bg-gray-100 rounded-xl">

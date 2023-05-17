@@ -40,10 +40,10 @@ function ProductDetailedCard({ product }) {
       <div className="py-8 pr-8 flex flex-col justify-between">
         <div>
           <p className="text-primary-dark text-lg font-bold">
-            {product?.price} USD
+            {product?.sellingPrice} USD
           </p>
           <p className="font-semibold text-sm text-gray-400 line-through">
-            {parseInt(product?.price) + 75}
+            {parseInt(product?.sellingPrice) + 75}
           </p>
         </div>
         <div className="text-sm text-gray-500">

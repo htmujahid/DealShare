@@ -51,10 +51,10 @@ function ProductDescriptionCard({ product, feedbacks }) {
       <div className="flex rounded-xl p-4 border gap-x-6 mb-6">
         <div className="flex-1">
           <h4 className="text-2xl text-primary-dark font-bold">
-            {product?.price} USD
+            {product?.sellingPrice} USD
           </h4>
           <p className="text-xs text-gray-500 line-through">
-            {parseInt(product?.price) + 75} USD
+            {parseInt(product?.sellingPrice) + 75} USD
           </p>
         </div>
         <div className="bg-gray-100 rounded-xl px-4 py-3 text-sm">

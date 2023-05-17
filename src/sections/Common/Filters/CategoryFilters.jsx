@@ -170,21 +170,27 @@ function CategoryFilters() {
         <h3 className="text-lg font-semibold mb-2">Price Range</h3>
         <div className="flex flex-row items-center gap-2">
           <div className="">
-            <label className="text-sm font-semibold block" htmlFor="price-1">
+            <label
+              className="text-sm font-semibold block"
+              htmlFor="sellingPrice-1"
+            >
               Min
             </label>
             <input
-              id="price-1"
+              id="sellingPrice-1"
               type="number"
               className="mr-2 w-[100px] h-[42px] border rounded-xl p-4"
             />
           </div>
           <div className="">
-            <label className="text-sm font-semibold block" htmlFor="price-2">
+            <label
+              className="text-sm font-semibold block"
+              htmlFor="sellingPrice-2"
+            >
               Max
             </label>
             <input
-              id="price-2"
+              id="sellingPrice-2"
               type="number"
               className="mr-2 w-[100px] h-[42px] border rounded-xl p-4"
             />

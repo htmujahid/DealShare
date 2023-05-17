@@ -1,7 +1,7 @@
 import { db } from "../middleware";
 
-const calculatePriceDifference = (price, basePrice) => {
-  return price - basePrice;
+const calculatePriceDifference = (sellingPrice, basePrice) => {
+  return sellingPrice - basePrice;
 };
 
 const calculateDistanceDifference = (distance, baseDistance) => {
@@ -21,8 +21,8 @@ const getCoordinatesFromAddress = async (address) => {
   };
 };
 
-const getPriceWeight = (price, basePrice) => {
-  const priceDifference = calculatePriceDifference(price, basePrice);
+const getPriceWeight = (sellingPrice, basePrice) => {
+  const priceDifference = calculatePriceDifference(sellingPrice, basePrice);
 
   if (priceDifference <= 0) {
     return 1;
@@ -198,7 +198,7 @@ const getHoursCaclculatedForDistance = (distance, baseDistance) => {
 The algorithm for ETA takes multiple parameters 
   - the quantity ordered by the customer 
   - the product threshold set by the manufacturer 
-  - the price of the product 
+  - the sellingPrice of the product 
   - proximity of the customer to the manufacturer's location)
 */
 export const getEstimatedTimeOfArrival = async (
@@ -207,18 +207,18 @@ export const getEstimatedTimeOfArrival = async (
   manufacturer
 ) => {
   let baseTime = 72; // base time in hours
-  let basePrice = 50; // base price in dollars
+  let basePrice = 50; // base sellingPrice in dollars
   let baseDistance = 30; //base distance in kilometers
 
   console.log("ETA before calculations: ", Math.ceil(baseTime / 24));
   const quantityPercentage = order.quantity / product.threshold;
-  const priceWeight = getPriceWeight(product.price, basePrice);
+  const priceWeight = getPriceWeight(product.sellingPrice, basePrice);
 
-  //Increase price based on ordered quantity
+  //Increase sellingPrice based on ordered quantity
   let estimatedTime = baseTime / quantityPercentage;
   console.log("ETA after quantity factor: ", Math.ceil(estimatedTime / 24));
 
-  //Increase time based on price
+  //Increase time based on sellingPrice
   estimatedTime = estimatedTime * priceWeight;
   console.log("ETA after pricing factor: ", Math.ceil(estimatedTime / 24));
 

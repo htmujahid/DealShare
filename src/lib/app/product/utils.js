@@ -37,7 +37,8 @@ export function stringToTitleCase(string) {
 export function calculateSubtotalPrice(products) {
   let totalPrice = 0;
   for (let i = 0; i < products?.length; i++) {
-    totalPrice += parseFloat(products[i]?.price) * (products[i]?.quantity ?? 1);
+    totalPrice +=
+      parseFloat(products[i]?.sellingPrice) * (products[i]?.quantity ?? 1);
   }
 
   return totalPrice;
