@@ -75,7 +75,7 @@ export async function getProductsByManufacturer(manufacturerId) {
     .aggregate([
       {
         $match: {
-          manufacturerId,
+          manufacturerId: new ObjectId(manufacturerId),
         },
       },
       {
@@ -283,7 +283,7 @@ export async function addProduct(product, manufacturerId) {
     costPrice: product.costPrice,
     poolThreshold: product.poolThreshold,
     status: product.status,
-    manufacturerId,
+    manufacturerId: new ObjectId(manufacturerId),
     createdAt: new Date(),
     modifiedAt: new Date(),
   });
@@ -316,6 +316,9 @@ export async function editProduct(id, product) {
 }
 
 export async function deleteProduct(id) {
+  await db.collection("inventories").deleteOne({
+    productId: new ObjectId(id),
+  });
   return await db.collection("products").deleteOne({
     _id: new ObjectId(id),
   });

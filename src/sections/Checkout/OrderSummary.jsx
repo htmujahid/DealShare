@@ -29,9 +29,9 @@ function OrderSummary() {
           <p className="">Subtotal</p>
           <p className="text-right">$ {calculateSubtotalPrice(cartItems)}</p>
           <p className="">Tax</p>
-          <p className="text-right">$ 1,000.00</p>
+          <p className="text-right">$ 0.00</p>
           <p className="">Shipping</p>
-          <p className="text-right">$ 1,000.00</p>
+          <p className="text-right">$ 0.00</p>
           <p className="">
             Total <br />
             <span className="text-xs font-normal">Taxes are applied</span>

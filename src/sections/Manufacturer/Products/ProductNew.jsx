@@ -13,7 +13,7 @@ function ProductNew() {
     sellingPrice: "",
     costPrice: "",
     quantity: "",
-    status: "",
+    status: "Published",
     poolThreshold: "",
     description: "",
   });
