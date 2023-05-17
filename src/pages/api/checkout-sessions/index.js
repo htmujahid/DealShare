@@ -40,7 +40,7 @@ router.post(async (req, res) => {
           quantity: 1,
           price_data: {
             currency: "usd",
-            unit_amount: req.body.amount * 100,
+            unit_amount: parseInt(req.body.amount * 100),
             product_data: {
               name: "Dealshare order",
               description: "Bought items",
