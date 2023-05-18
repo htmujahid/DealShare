@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { Button } from "@/components/Form";
 import { ProductSummaryCard } from "@/components/Card";
-import { OrderSummary } from "../Checkout";
 import Link from "next/link";
 import { CartContext } from "@/components/ContextProviders";
 import { useRouter } from "next/router";
+import OrderSummary from "../Checkout/OrderSummary";
 
 function ShoppingCart() {
   const router = useRouter();
@@ -36,7 +36,7 @@ function ShoppingCart() {
           </div>
         </div>
       </div>
-      <OrderSummary />
+      <OrderSummary addressDetails={["", "", "", ""]} />
     </div>
   ) : (
     <div className="min-h-[500px] flex flex-col justify-center items-center">

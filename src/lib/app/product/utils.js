@@ -1,5 +1,5 @@
-const taxPercent = 5.5;
-const shipping = 25;
+export const taxPercent = 5.5;
+export const shipping = 25;
 
 export function calculateDayDifference(date1, date2) {
   const diffTime = Math.abs(date2 - date1);

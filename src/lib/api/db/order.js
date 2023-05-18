@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { db } from "../middleware";
-import {dbProjectionUsers} from "@/lib/api/db/users";
+import { dbProjectionUsers } from "@/lib/api/db/users";
 
 export async function addOrder(order) {
   const { insertedId } = await db.collection("orders").insertOne(order);
@@ -69,7 +69,7 @@ export async function getAdminOrders() {
         },
       },
       {
-        $unwind: "$invoice"
+        $unwind: "$invoice",
       },
       {
         $lookup: {
@@ -92,7 +92,7 @@ export async function getOrderByManufacturer(manufacturerId) {
     .aggregate([
       {
         $match: {
-          manufacturerId: ObjectId(manufacturerId),
+          manufacturerId: new ObjectId(manufacturerId),
         },
       },
       {
@@ -113,15 +113,12 @@ export async function getOrderByManufacturer(manufacturerId) {
 }
 
 export async function getOrder(id) {
-  return await db
+  const order = await db
     .collection("orders")
-    .findOne({
-      _id: ObjectId(id),
-    })
     .aggregate([
       {
         $match: {
-          manufacturerId: ObjectId(manufacturerId),
+          _id: new ObjectId(id),
         },
       },
       {
@@ -132,7 +129,13 @@ export async function getOrder(id) {
           as: "invoice",
         },
       },
-    ]);
+      {
+        $unwind: "$invoice",
+      },
+    ])
+    .toArray();
+
+  return order[0];
 }
 
 export async function getOrderDetails(id) {
@@ -172,33 +175,44 @@ export async function getOrderDetails(id) {
           localField: "products.productId",
           foreignField: "_id",
           as: "orderProducts",
-        }
+        },
       },
       {
         $project: {
           "customer.password": 0,
           "customer.emailVerified": 0,
-        }
-      }
-    ]).toArray();
+        },
+      },
+    ])
+    .toArray();
 
-  return Promise.all(order.map(async (order) => {
-    return {
-      ...order,
-      products: await Promise.all(order.orderProducts.map(async (product) => {
-        const manufacturer = await db.collection("users").findOne({
-          _id: new ObjectId(product.manufacturerId),
-        },{ projection: dbProjectionUsers() });
-        return {
-          ...product,
-          manufacturer,
-          quantity: order.products.find((p) => p.productId.toString() === product._id.toString()).quantity,
-          price: order.products.find((p) => p.productId.toString() === product._id.toString()).price,
-        }
-      }))
-    }
-  }))
-
+  return Promise.all(
+    order.map(async (order) => {
+      return {
+        ...order,
+        products: await Promise.all(
+          order.orderProducts.map(async (product) => {
+            const manufacturer = await db.collection("users").findOne(
+              {
+                _id: new ObjectId(product.manufacturerId),
+              },
+              { projection: dbProjectionUsers() }
+            );
+            return {
+              ...product,
+              manufacturer,
+              quantity: order.products.find(
+                (p) => p.productId.toString() === product._id.toString()
+              ).quantity,
+              price: order.products.find(
+                (p) => p.productId.toString() === product._id.toString()
+              ).price,
+            };
+          })
+        ),
+      };
+    })
+  );
 }
 
 export async function getManufacturerOrderDetails(id, manufacturerId) {
@@ -238,34 +252,45 @@ export async function getManufacturerOrderDetails(id, manufacturerId) {
           localField: "products.productId",
           foreignField: "_id",
           as: "orderProducts",
-        }
+        },
       },
       {
         $project: {
           "customer.password": 0,
           "customer.emailVerified": 0,
-        }
-      }
-    ]).toArray();
+        },
+      },
+    ])
+    .toArray();
 
-  return Promise.all(order.map(async (order) => {
-    return {
-      ...order,
-      products: await Promise.all(order.orderProducts.map(async (product) => {
-        const manufacturer = await db.collection("users").findOne({
-          _id: new ObjectId(product.manufacturerId),
-        },{ projection: dbProjectionUsers() })
-        if (manufacturerId.toString() !== manufacturer._id.toString()) {
-          return null;
-        }
-        return {
-          ...product,
-          manufacturer,
-          quantity: order.products.find((p) => p.productId.toString() === product._id.toString()).quantity,
-          price: order.products.find((p) => p.productId.toString() === product._id.toString()).price,
-        }
-      }))
-    }
-  }))
-
+  return Promise.all(
+    order.map(async (order) => {
+      return {
+        ...order,
+        products: await Promise.all(
+          order.orderProducts.map(async (product) => {
+            const manufacturer = await db.collection("users").findOne(
+              {
+                _id: new ObjectId(product.manufacturerId),
+              },
+              { projection: dbProjectionUsers() }
+            );
+            if (manufacturerId.toString() !== manufacturer._id.toString()) {
+              return null;
+            }
+            return {
+              ...product,
+              manufacturer,
+              quantity: order.products.find(
+                (p) => p.productId.toString() === product._id.toString()
+              ).quantity,
+              price: order.products.find(
+                (p) => p.productId.toString() === product._id.toString()
+              ).price,
+            };
+          })
+        ),
+      };
+    })
+  );
 }

@@ -19,10 +19,34 @@ export async function getRecentProducts(limit) {
         },
       },
       {
-        $unwind: "$media",
+        $unwind: {
+          path: "$media",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "manufacturerId",
+          foreignField: "_id",
+          as: "manufacturer",
+        },
+      },
+      {
+        $unwind: {
+          path: "$manufacturer",
+          preserveNullAndEmptyArrays: true,
+        },
       },
       {
         $limit: limit,
+      },
+      {
+        $project: {
+          "manufacturer.password": 0,
+          "manufacturer.role": 0,
+          "manufacturer.emailVerified": 0,
+        },
       },
     ])
     .toArray();
@@ -276,9 +300,9 @@ export async function addProduct(product, manufacturerId) {
     name: product.name,
     description: product.description,
     category: product.category,
-    sellingPrice: product.sellingPrice,
-    costPrice: product.costPrice,
-    poolThreshold: product.poolThreshold,
+    sellingPrice: parseFloat(product.sellingPrice),
+    costPrice: parseFloat(product.costPrice),
+    poolThreshold: parseInt(product.poolThreshold),
     status: product.status,
     manufacturerId: new ObjectId(manufacturerId),
     createdAt: new Date(),
