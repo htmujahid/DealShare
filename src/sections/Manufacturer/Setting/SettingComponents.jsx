@@ -26,9 +26,8 @@ function SettingComponents() {
         email: user.email,
         phone: user.phone,
         address: user.address,
-        city: user.city,
-        state: user.state,
-        country: user.country,
+        town: user.city,
+        stateCountry: user.country,
       });
       toast.success("User updated successfully");
     } catch (error) {
@@ -70,7 +69,7 @@ function SettingComponents() {
                 General information
               </h3>
               <form onSubmit={onSubmit}>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                   <Input
                     placeholder="Bonnie"
                     className="w-full"
@@ -126,32 +125,32 @@ function SettingComponents() {
                   <Input
                     placeholder="San Francisco"
                     className="w-full"
-                    value={user?.city}
+                    value={user?.town}
                     onChange={(e) => setUser({ ...user, city: e.target.value })}
                   >
                     City
                   </Input>
                   <Input
-                    placeholder="California"
+                    placeholder="Awesome Business"
                     className="w-full"
-                    value={user?.state}
+                    value={user?.businessName}
                     onChange={(e) =>
-                      setUser({ ...user, state: e.target.value })
+                      setUser({ ...user, businessName: e.target.value })
                     }
                   >
-                    State
+                    Business Name
                   </Input>
                   <Input
                     placeholder="United States"
                     className="w-full"
-                    value={user?.country}
+                    value={user?.stateCountry}
                     onChange={(e) =>
                       setUser({ ...user, country: e.target.value })
                     }
                   >
                     Country
                   </Input>
-                  <PrimaryButton className="mx-auto col-span-2">
+                  <PrimaryButton className="col-span-2 mx-auto">
                     Save
                   </PrimaryButton>
                 </div>

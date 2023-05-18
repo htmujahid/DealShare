@@ -16,13 +16,13 @@ function ProductDetailedCard({ product }) {
           alt="abc"
         />
       </div>
-      <div className="py-8 flex-1">
-        <h3 className="font-bold text-lg pb-1">{product?.name}</h3>
-        <p className="text-sm pb-2">{product?.description}</p>
+      <div className="flex-1 py-8">
+        <h3 className="pb-1 text-lg font-bold">{product?.name}</h3>
+        <p className="pb-2 text-sm">{product?.description}</p>
         {feedbacks?.length > 0 && (
           <ProductReview rating={calculateAverageRating(feedbacks)} />
         )}
-        <div className="pt-3 text-gray-500 text-sm">
+        <div className="pt-3 text-sm text-gray-500">
           <div className="flex pt-3">
             <div className="w-24">Category</div>
             <div className="w-24">{product?.category}</div>
@@ -37,12 +37,12 @@ function ProductDetailedCard({ product }) {
           </div>
         </div>
       </div>
-      <div className="py-8 pr-8 flex flex-col justify-between">
+      <div className="flex flex-col justify-between py-8 pr-8">
         <div>
-          <p className="text-primary-dark text-lg font-bold">
+          <p className="text-lg font-bold text-primary-dark">
             {product?.sellingPrice} USD
           </p>
-          <p className="font-semibold text-sm text-gray-400 line-through">
+          <p className="text-sm font-semibold text-gray-400 line-through">
             {parseInt(product?.sellingPrice) + 75}
           </p>
         </div>
@@ -58,7 +58,7 @@ function ProductDetailedCard({ product }) {
             </Button>
           </Link>
           <Button>
-            <span className="material-symbols-outlined pr-2">favorite</span>
+            <span className="pr-2 material-symbols-outlined">favorite</span>
             Add to Card
           </Button>
         </div>

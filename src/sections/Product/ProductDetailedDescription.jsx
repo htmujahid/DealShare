@@ -27,7 +27,7 @@ function ProductDetailedDescription({ product }) {
         <div className="w-[569px]">
           <ProductDescriptionCard product={product} feedbacks={feedbacks} />
           <div>
-            <div className="grid grid-cols-3 text-xl font-bold mb-12">
+            <div className="grid grid-cols-3 mb-12 text-xl font-bold">
               <button
                 className={`text-center pb-2 border-b ${
                   currentTab === "description" &&

@@ -1,6 +1,7 @@
 import { PrimaryLogo } from "@/components/Application";
 import { Button, Input } from "@/components/Form";
 import { AuthContainer } from "@/components/Layouts/Container";
+import { userRoles } from "@/lib/app/user";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,7 +12,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   const handleSignIn = async (e) => {
@@ -35,7 +36,19 @@ function Login() {
   };
 
   useEffect(() => {
-    if (status === "authenticated") router.replace("/");
+    if (status === "authenticated") {
+      switch (session.user.role) {
+        case userRoles.MANUFACTURER:
+          router.replace("/manufacturer");
+          break;
+        case userRoles.CUSTOMER:
+          router.replace("/");
+          break;
+        case userRoles.ADMIN:
+          router.replace("/admin");
+          break;
+      }
+    }
   }, [status, router]);
 
   return (
@@ -45,11 +58,11 @@ function Login() {
           <div>
             <PrimaryLogo />
             <h4 className="text-2xl font-bold text-center">Welcome Back!</h4>
-            <p className="text-gray-500 text-center">Login to Your Account</p>
+            <p className="text-center text-gray-500">Login to Your Account</p>
           </div>
           <form
             onSubmit={handleSignIn}
-            className="flex flex-col w-full mt-4 gap-4"
+            className="flex flex-col w-full gap-4 mt-4"
           >
             <Input
               inputRef={emailRef}
@@ -70,7 +83,7 @@ function Login() {
             <Button
               type="submit"
               variant="primary"
-              className="w-full justify-center"
+              className="justify-center w-full"
               loading={loading}
             >
               Login
@@ -80,7 +93,7 @@ function Login() {
             <div>
               <Link
                 href="/auth/signup"
-                className="text-primary-dark text-sm hover:opacity-70"
+                className="text-sm text-primary-dark hover:opacity-70"
               >
                 Create Account
               </Link>

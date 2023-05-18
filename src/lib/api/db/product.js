@@ -154,7 +154,7 @@ export async function getRecentProductsByCategory(category, page, limit) {
 
   return {
     paginatedResults: products[0].paginatedResults,
-    count: products[0].totalCount[0].count,
+    count: products[0].totalCount[0]?.count,
   };
 }
 

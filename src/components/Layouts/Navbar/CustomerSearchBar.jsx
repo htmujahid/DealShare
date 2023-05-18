@@ -3,22 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { CustomerContainer } from "../Container";
+import { useProductCategories } from "@/lib/app/product";
 
 function CustomerSearchBar() {
-  const categories = [
-    "clothes",
-    "shoes",
-    "food",
-    "computer",
-    "furniture",
-    "kids",
-    "beauty",
-    "healthcare",
-    "entertainment",
-    "smartphones",
-    "electrnoics",
-  ];
-
+  const { categories } = useProductCategories();
   const { searchKeyword, setSearchKeyword } = useContext(SearchContext);
   const { cartItems } = useContext(CartContext);
   const router = useRouter();
@@ -29,8 +17,8 @@ function CustomerSearchBar() {
 
   return (
     <CustomerContainer>
-      <div className="flex py-6 justify-between items-center">
-        <div className="flex gap-6 items-center opacity-0">
+      <div className="flex items-center justify-between py-6">
+        <div className="flex items-center gap-6 opacity-0">
           <div>
             {/* account icons */}
             <span className="material-symbols-outlined">person</span>
@@ -41,13 +29,20 @@ function CustomerSearchBar() {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex gap-6 py-3 px-6 border-2 border rounded-2xl"
+          className="flex gap-6 px-6 py-3 border border-2 rounded-2xl"
         >
-          <select name="" id="" className="font-bold focus:outline-none">
+          <select
+            onChange={(e) =>
+              router.push(`/category/${e.target.value.toLowerCase()}`)
+            }
+            name=""
+            id=""
+            className="font-bold focus:outline-none"
+          >
             <option value="">All Categories</option>
-            {categories.map((category, index) => (
-              <option value={category} key={index}>
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+            {categories?.map((category) => (
+              <option value={category.name} key={category._id}>
+                {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
               </option>
             ))}
           </select>
@@ -62,7 +57,7 @@ function CustomerSearchBar() {
             <span className="material-symbols-outlined">search</span>
           </button>
         </form>
-        <div className="flex gap-6 items-center">
+        <div className="flex items-center gap-6">
           <Link href="/account">
             <span className="material-symbols-outlined">person</span>
           </Link>
