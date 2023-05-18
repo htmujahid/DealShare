@@ -1,3 +1,4 @@
+import { useCurrentUser, userRoles } from "@/lib/app/user";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -6,14 +7,35 @@ function Access({ children, waitContent = null, access }) {
   const loading = status === "loading";
   const router = useRouter();
   const user = session?.user;
+  const { user: currentUser, loading: currentUserLoading } = useCurrentUser();
 
+  console.log(currentUser);
   //If there are no access defined htmlFor the page, allow the page to be rendered
   if (access == undefined) {
     return children;
   }
   if (!loading && !user) router.push("/auth/login");
 
-  if (!loading && user && access.includes(user.role)) return children;
+  if (
+    !loading &&
+    !currentUserLoading &&
+    user &&
+    currentUser &&
+    access.includes(user.role)
+  ) {
+    if (user.role === userRoles.MANUFACTURER) {
+      if (
+        !currentUser?.businessName ||
+        !currentUser?.address ||
+        !currentUser?.town ||
+        !currentUser?.stateCountry ||
+        !currentUser?.zip
+      ) {
+        router.push("/auth/onboarding");
+      }
+    }
+    return children;
+  }
 
   return waitContent;
 }
