@@ -11,7 +11,7 @@ export async function addProduct(data) {
 export async function addProductImages(productId, data) {
   return await fetcher(`/api/manufacturer/products/${productId}/images`, {
     method: "POST",
-    body: data,
+    body: JSON.stringify(data),
   });
 }
 

@@ -21,16 +21,17 @@ function ProductNew() {
 
   const [productImageFiles, setProductImageFiles] = useState([]);
 
-  const [productImages, setProductImages] = useState([]);
-
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await addProduct(product);
-      setProductImages(
-        productImageFiles.map((file) => uploadToCloudinary(file))
-      );
-      addProductImages(result.insertedId, productImages);
+      const productImages = [];
+      for (var i = 0; i < productImageFiles.length; i++) {
+        const productImage = await uploadToCloudinary(productImageFiles[i]);
+        productImages.push(productImage);
+      }
+      console.log(productImages);
+      await addProductImages(result.insertedId, productImages);
     } catch (error) {
       console.log(error);
     } finally {
@@ -44,6 +45,7 @@ function ProductNew() {
         poolThreshold: "",
         description: "",
       });
+      setProductImageFiles([]);
     }
   };
   return (

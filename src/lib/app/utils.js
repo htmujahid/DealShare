@@ -13,8 +13,12 @@ export const uploadToCloudinary = async (file) => {
   fileData.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD);
 
   const response = await fetch(
-    `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD}/image/upload`
+    `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD}/image/upload`,
+    {
+      method: "POST",
+      body: fileData,
+    }
   );
   const data = await response.json();
-  return data;
+  return data.url;
 };

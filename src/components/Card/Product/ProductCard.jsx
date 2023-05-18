@@ -20,7 +20,7 @@ function ProductCard({ product }) {
         <div className="rounded-xl flex items-center ">
           <img
             className="w-full h-48"
-            src={product?.media?.mediaURL[0] ?? ""}
+            src={product?.media?.mediaUrl[0] ?? ""}
           />
         </div>
         <div className="pt-4">

@@ -19,10 +19,7 @@ export async function getRecentProducts(limit) {
         },
       },
       {
-        $unwind: {
-          path: "$media",
-          preserveNullAndEmptyArrays: true,
-        },
+        $unwind: "$media",
       },
       {
         $limit: limit,
@@ -275,7 +272,7 @@ export async function getProductCategories() {
 }
 
 export async function addProduct(product, manufacturerId) {
-  const productId = await db.collection("products").insertOne({
+  const result = await db.collection("products").insertOne({
     name: product.name,
     description: product.description,
     category: product.category,
@@ -287,12 +284,13 @@ export async function addProduct(product, manufacturerId) {
     createdAt: new Date(),
     modifiedAt: new Date(),
   });
-  return await db.collection("inventories").insertOne({
-    productId: productId.insertedId,
+  await db.collection("inventories").insertOne({
+    productId: result.insertedId,
     quantity: product.quantity,
     createdAt: new Date(),
     modifiedAt: new Date(),
   });
+  return result;
 }
 
 export async function editProduct(id, product) {
@@ -340,8 +338,8 @@ export async function updateInventory(productId, inventory) {
 
 export async function addProductImages(productId, images) {
   return await db.collection("productMedias").insertOne({
-    productId,
-    mediaUrl: images,
+    productId: new ObjectId(productId),
+    mediaUrl: JSON.parse(images),
     createdAt: new Date(),
     modifiedAt: new Date(),
   });

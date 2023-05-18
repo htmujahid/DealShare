@@ -14,16 +14,14 @@ router.use(database, tokenChecker, roleAuthorization(["manufacturer"]));
 router.post(async (req, res) => {
   const { productId } = req.query;
   const { user } = req;
-
   try {
     const product = await getProduct(productId);
 
-    if (!product || product.manufacturerId !== user._id) {
+    if (!product || product.manufacturerId.toString() !== user._id.toString()) {
       return res.status(404).json({
         error: "Product not found",
       });
     }
-
     const productImages = addProductImages(productId, req.body);
 
     return res.status(200).json(productImages);
