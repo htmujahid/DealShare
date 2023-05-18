@@ -380,3 +380,27 @@ export async function inProgressOrder(id) {
   );
   return matchedCount;
 }
+
+export async function getCustomerProductsStatus(orderId) {
+  return await db
+    .collection("orderPools")
+    .aggregate([
+      {
+        $match: {
+          orders: new ObjectId(orderId),
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      {
+        $unwind: "$product",
+      },
+    ])
+    .toArray();
+}

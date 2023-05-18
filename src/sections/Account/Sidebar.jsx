@@ -18,11 +18,11 @@ export const settingOptions = {
     text: "Orders",
     component: <Orders />,
   },
-  INVOICES: {
-    id: "products",
-    text: "Products",
-    component: <Products />,
-  },
+  // INVOICES: {
+  //   id: "products",
+  //   text: "Products",
+  //   component: <Products />,
+  // },
   ADDRESS: {
     id: "address",
     text: "Address",
