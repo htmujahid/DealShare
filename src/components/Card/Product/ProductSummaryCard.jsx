@@ -6,7 +6,6 @@ function ProductSummaryCard({ product }) {
   const [qty, setQty] = React.useState(1);
   const { cartItems, setCartItems } = useContext(CartContext);
   const [showDeleteConfrimation, setShowDeleteConfirmation] = useState(false);
-
   useEffect(() => {
     setCartItems(
       cartItems.map((item) => {
@@ -34,7 +33,7 @@ function ProductSummaryCard({ product }) {
       <div>
         <div className="w-[100px] max-h-[75px] bg-gray-100 rounded-xl mb-4">
           <img
-            src={product?.media?.mediaURL[0]}
+            src={product?.media?.mediaUrl[0]}
             className="w-full h-full max-h-[75px]"
             alt={product?.name}
           />
@@ -52,8 +51,6 @@ function ProductSummaryCard({ product }) {
         <div className="grid grid-cols-2 gap-1 text-sm text-gray-500">
           <p className="w-20">Type</p>
           <p className="w-20">{product?.category}</p>
-          <p className="w-20">Est. Delivery</p>
-          <p className="w-20">12 Days</p>
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -70,19 +67,10 @@ function ProductSummaryCard({ product }) {
             type="number"
             min={1}
             value={qty}
-            onChange={(e) => setQty(e.target.value)}
+            onChange={(e) => setQty(parseInt(e.target.value))}
             className="w-12 focus:outline-none bg-inherit"
           />
           <span className="border border-gray-300"></span>
-          <select
-            name="buyby"
-            id="buyby"
-            className="bg-inherit focus:outline-none"
-          >
-            <option value="Pcs">Pcs</option>
-            <option value="Box">Box</option>
-            <option value="Pack">Pack</option>
-          </select>
         </div>
       </div>
     </div>

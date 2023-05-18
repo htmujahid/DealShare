@@ -8,7 +8,7 @@ import { isEmpty } from "@/lib/app/utils";
 import React, { useCallback, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 
-function BillingInfo() {
+function BillingInfo({ addressDetails, setAddressDetails }) {
   const { cartItems } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -126,6 +126,14 @@ function BillingInfo() {
           </Input>
           <Input
             onChange={(e) => setAddress(e.target.value)}
+            onBlur={(e) =>
+              setAddressDetails([
+                e.target.value,
+                addressDetails[1],
+                addressDetails[2],
+                addressDetails[3],
+              ])
+            }
             className="w-full"
             placeholder="Address"
           >
@@ -133,6 +141,14 @@ function BillingInfo() {
           </Input>
           <Input
             onChange={(e) => setTown(e.target.value)}
+            onBlur={(e) =>
+              setAddressDetails([
+                addressDetails[0],
+                e.target.value,
+                addressDetails[2],
+                addressDetails[3],
+              ])
+            }
             className="w-full"
             placeholder="Town / City"
           >
@@ -140,6 +156,14 @@ function BillingInfo() {
           </Input>
           <Input
             onChange={(e) => setStateCountry(e.target.value)}
+            onBlur={(e) =>
+              setAddressDetails([
+                addressDetails[0],
+                addressDetails[1],
+                addressDetails[2],
+                e.target.value,
+              ])
+            }
             className="w-full"
             placeholder="State Country"
           >
@@ -147,6 +171,14 @@ function BillingInfo() {
           </Input>
           <Input
             onChange={(e) => setZip(e.target.value)}
+            onBlur={(e) =>
+              setAddressDetails([
+                addressDetails[0],
+                addressDetails[1],
+                e.target.value,
+                addressDetails[3],
+              ])
+            }
             className="w-full"
             placeholder="Zip"
           >
