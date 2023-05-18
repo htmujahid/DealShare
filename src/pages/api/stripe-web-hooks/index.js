@@ -45,7 +45,7 @@ router.post(async (req, res) => {
         if (!orderId) return res.status(404).end();
 
         await updateOrder(orderId, { paid: true });
-        const order = getOrder(orderId);
+        const order = await getOrder(orderId);
         await addOrderPool(order);
 
         return res.end();
