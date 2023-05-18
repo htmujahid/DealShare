@@ -1,4 +1,5 @@
-import { updateOrder } from "@/lib/api/db";
+import { addOrderPool } from "@/lib/api/controllers/order-controller";
+import { getOrder, updateOrder } from "@/lib/api/db";
 import { database } from "@/lib/api/middleware";
 import { ncRouteHandlerOpts } from "@/lib/api/nc";
 import { buffer } from "micro";
@@ -44,6 +45,8 @@ router.post(async (req, res) => {
         if (!orderId) return res.status(404).end();
 
         await updateOrder(orderId, { paid: true });
+        const order = getOrder(orderId);
+        await addOrderPool(order);
 
         return res.end();
       }
