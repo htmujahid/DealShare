@@ -8,9 +8,12 @@ import {
   CrossCircleIcon,
   OrderIcon,
 } from "@/components/Assets";
+import { useManufacturerOrders } from "@/lib/app/order";
 
 function OrdersSummary() {
   const router = useRouter();
+  const { orders } = useManufacturerOrders();
+
   const [showAddModal, setShowAddModal] = useState(false);
   return (
     <>
@@ -32,24 +35,36 @@ function OrdersSummary() {
           <StatsSummary
             icon={<OrderIcon />}
             value={[
-              { title: "All Orders", value: 350 },
-              { title: "Active Orders", value: 325 },
+              { title: "All Orders", value: orders?.length },
+              {
+                title: "Completed Orders",
+                value: orders?.filter((order) => order.status == "completed")
+                  .length,
+              },
             ]}
           />
           <StatsSummary
             icon={<CheckCircleIcon />}
             value={[
-              { title: "Completed Orders", value: 13 },
-              { title: "Pending Orders", value: 0 },
+              {
+                title: "Active Orders",
+                value: orders?.filter((order) => order.status == "in progress")
+                  .length,
+              },
+              {
+                title: "Cancelled Orders",
+                value: orders?.filter((order) => order.status == "cancelled")
+                  .length,
+              },
             ]}
           />
-          <StatsSummary
+          {/* <StatsSummary
             icon={<CrossCircleIcon />}
             value={[
               { title: "Cancelled Orders", value: 3 },
               { title: "Abondoned Cart", value: 5 },
             ]}
-          />
+          /> */}
         </div>
       </div>
       {showAddModal && (

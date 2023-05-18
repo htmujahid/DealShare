@@ -63,8 +63,19 @@ function ProductsSummary() {
           <StatsSummary
             icon={<StarIcon />}
             value={[
-              { title: "1 Star Rating", value: 3 },
-              { title: "5 Star Rating", value: 5 },
+              {
+                title: "Published Products",
+                value: products?.filter(
+                  (product) => product.status == "Published"
+                ).length,
+              },
+              {
+                title: "Draft Products",
+
+                value: products?.filter(
+                  (product) => product.status != "Published"
+                ).length,
+              },
             ]}
           />
         </div>

@@ -31,9 +31,9 @@ function OrdersTable() {
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">
               All Orders
             </h1>
-            <form className="sm:pr-3" action="#" method="GET">
+            {/* <form className="sm:pr-3" action="#" method="GET">
               <Search>Search For Orders</Search>
-            </form>
+            </form> */}
           </div>
           <div className="flex flex-col">
             <div className="overflow-x-auto">
@@ -102,7 +102,7 @@ function OrdersTable() {
               </div>
             </div>
           </div>
-          <PaginationCount />
+          {/* <PaginationCount /> */}
         </TableContainer>
         {showDeleteModal && (
           <DeleteConfirmationModal

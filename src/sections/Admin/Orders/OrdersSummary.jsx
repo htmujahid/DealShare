@@ -1,16 +1,21 @@
 import { PrimaryButton } from "@/components/Buttons";
 import { StatsSummary } from "@/components/Widgets";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { OrderNew } from ".";
 import {
   CheckCircleIcon,
   CrossCircleIcon,
   OrderIcon,
 } from "@/components/Assets";
+import { useAdminOrders } from "@/lib/app/order";
 
 function OrdersSummary() {
   const router = useRouter();
+  const { orders, isLoading, isError } = useAdminOrders();
+
+  useEffect;
+
   const [showAddModal, setShowAddModal] = useState(false);
   return (
     <>
@@ -32,22 +37,36 @@ function OrdersSummary() {
           <StatsSummary
             icon={<OrderIcon />}
             value={[
-              { title: "All Orders", value: 350 },
-              { title: "Active Orders", value: 325 },
+              { title: "All Orders", value: orders?.length },
+              { title: "Active Orders", value: orders?.length },
             ]}
           />
           <StatsSummary
             icon={<CheckCircleIcon />}
             value={[
-              { title: "Completed Orders", value: 13 },
-              { title: "Pending Orders", value: 0 },
+              {
+                title: "Completed Orders",
+                value: orders?.filter((order) => order.status == "completed")
+                  .length,
+              },
+              {
+                title: "Pending Orders",
+                value: orders?.filter((order) => order.status == "pending")
+                  .length,
+              },
             ]}
           />
           <StatsSummary
             icon={<CrossCircleIcon />}
             value={[
-              { title: "Cancelled Orders", value: 3 },
-              { title: "Abondoned Cart", value: 5 },
+              {
+                title: "Paid Orders",
+                value: orders?.filter((order) => order.paid).length,
+              },
+              {
+                title: "Unpaid Orders",
+                value: orders?.filter((order) => !order.paid).length,
+              },
             ]}
           />
         </div>

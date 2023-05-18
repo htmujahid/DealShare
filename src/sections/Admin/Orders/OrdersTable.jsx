@@ -11,7 +11,7 @@ import {
   Tr,
 } from "@/components/Table";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import OrderUpdate from "./OrderUpdate";
 import { useAdminOrders } from "@/lib/app/order";
 import Link from "next/link";
@@ -40,9 +40,9 @@ function OrdersTable() {
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">
               All Orders
             </h1>
-            <form className="sm:pr-3" action="#" method="GET">
+            {/* <form className="sm:pr-3" action="#" method="GET">
               <Search>Search For Orders</Search>
-            </form>
+            </form> */}
           </div>
           <div className="flex flex-col">
             <div className="overflow-x-auto">
@@ -102,7 +102,8 @@ function OrdersTable() {
                               </span>
                             ) : (
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {order.status?.charAt(0).toUpperCase() + order.status?.slice(1)}
+                                {order.status?.charAt(0).toUpperCase() +
+                                  order.status?.slice(1)}
                               </span>
                             )}
                           </Td>
@@ -128,7 +129,7 @@ function OrdersTable() {
               </div>
             </div>
           </div>
-          <PaginationCount />
+          {/* <PaginationCount /> */}
         </TableContainer>
         {showDeleteModal && (
           <DeleteConfirmationModal
