@@ -19,7 +19,7 @@ function ProductDetailedDescription({ product }) {
       <div className="grid grid-cols-2 gap-8 my-16">
         <div className="w-[569px] h-[436px] bg-gray-100 rounded-xl sticky top-8">
           <img
-            src={product?.media?.mediaURL[0] ?? ""}
+            src={product?.media?.mediaUrl[0] ?? ""}
             className="w-full rounded-xl"
             alt="abc"
           />
@@ -27,7 +27,7 @@ function ProductDetailedDescription({ product }) {
         <div className="w-[569px]">
           <ProductDescriptionCard product={product} feedbacks={feedbacks} />
           <div>
-            <div className="grid grid-cols-3 text-xl font-bold mb-12">
+            <div className="grid grid-cols-3 mb-12 text-xl font-bold">
               <button
                 className={`text-center pb-2 border-b ${
                   currentTab === "description" &&
