@@ -30,3 +30,13 @@ export function useManufacturerOrders() {
     loading: !data && !error,
   };
 }
+
+export function useOrderDetails(orderId) {
+  const { data, error } = useSWR(`/api/admin/orders/${orderId}`, fetcher);
+
+  return {
+    orderDetails: data,
+    error,
+    loading: !data && !error,
+  };
+}

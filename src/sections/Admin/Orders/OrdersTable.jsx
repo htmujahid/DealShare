@@ -55,7 +55,6 @@ function OrdersTable() {
                         <Th scope="col">Customer Name</Th>
                         <Th scope="col">Order Date</Th>
                         <Th scope="col">Order Total</Th>
-                        <Th scope="col">Action</Th>
                         <Th scope="col">Status</Th>
                         <Th scope="col"></Th>
                       </Tr>
@@ -81,7 +80,7 @@ function OrdersTable() {
                           </Td>
                           <Td>
                             <div className="text-base font-semibold text-gray-900 ">
-                              {order.userId}
+                              {order.user.firstName}
                             </div>
                             <div className="text-sm font-normal text-gray-500">
                               {order.email}
@@ -94,32 +93,22 @@ function OrdersTable() {
                             {new Intl.NumberFormat("en-US", {
                               style: "currency",
                               currency: "USD",
-                            }).format(order.total)}
+                            }).format(order.invoice.amount)}
                           </Td>
                           <Td>
-                            {order.status === "pending" ? (
+                            {order.paid === false ? (
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                {order.status}
-                              </span>
-                            ) : order.status === "completed" ? (
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {order.status}
-                              </span>
-                            ) : order.status === "cancelled" ? (
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                {order.status}
+                                Not Paid
                               </span>
                             ) : (
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                {order.status}
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                {order.status?.charAt(0).toUpperCase() + order.status?.slice(1)}
                               </span>
                             )}
                           </Td>
-                          <Td>{order.status}</Td>
-
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
                             <Link
-                              href={`/admin/orders/${order.id}`}
+                              href={`/admin/orders/${order._id}`}
                               className="font-medium text-primary-600 dark:text-primary-500 hover:underline"
                             >
                               Detail

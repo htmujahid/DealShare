@@ -18,7 +18,14 @@ router.post(async (req, res) => {
   try {
     const order = {
       paid: false,
-      products: req.body.products.map((product) => new ObjectId(product._id)),
+      status: "pending",
+      products: req.body.products.map((product) => {
+        return {
+          productId: new ObjectId(product._id),
+          quantity: product.quantity,
+          price: product.sellingPrice,
+        };
+      }),
       userId: new ObjectId(req.user._id),
       createdAt: new Date(),
     };
