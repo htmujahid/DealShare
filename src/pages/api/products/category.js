@@ -11,12 +11,13 @@ router.use(database);
 router.get(async (req, res) => {
   try {
     const products = await getRecentProductsByCategory(
-      req.query.category,
+      req.query.category.toLowerCase(),
       parseInt(req.query.page),
       parseInt(req.query.limit)
     );
     return res.status(200).json(products);
   } catch (e) {
+    console.log(e);
     return res.status(500).end();
   }
 });

@@ -5,8 +5,8 @@ import { CategoryFilters } from "../Common";
 function CategoryGridView({ products }) {
   return (
     <div className="flex min-w-[1280px] mb-16">
-      <CategoryFilters />
-      <div className="grid grid-cols-4 justify-start gap-x-4 gap-y-8 w-fit">
+      {/* <CategoryFilters /> */}
+      <div className="grid justify-start grid-cols-5 gap-x-4 gap-y-8 w-fit">
         {products?.length > 0 ? (
           products.map((product) => (
             <ProductCard key={product._id} product={product} />
