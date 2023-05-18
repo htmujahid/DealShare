@@ -1,7 +1,8 @@
-import { DarkButton, PrimaryButton } from "@/components/Buttons";
+import { PrimaryButton } from "@/components/Buttons";
 import { Input, Select, Textarea } from "@/components/Form";
 import { useProductCategories } from "@/lib/app/product";
-import { addProduct } from "@/lib/app/product/requests";
+import { addProduct, addProductImages } from "@/lib/app/product/requests";
+import { uploadToCloudinary } from "@/lib/app/utils";
 import React, { useState } from "react";
 
 function ProductNew() {
@@ -18,10 +19,18 @@ function ProductNew() {
     description: "",
   });
 
-  const onSubmit = (e) => {
+  const [productImageFiles, setProductImageFiles] = useState([]);
+
+  const [productImages, setProductImages] = useState([]);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      addProduct(product);
+      const result = await addProduct(product);
+      setProductImages(
+        productImageFiles.map((file) => uploadToCloudinary(file))
+      );
+      addProductImages(result.insertedId, productImages);
     } catch (error) {
       console.log(error);
     } finally {
@@ -147,20 +156,59 @@ function ProductNew() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <div className="w-full h-96 bg-gray-100 rounded-xl mt-4 flex items-center justify-center">
+        <div className="bg-white rounded-lg shadow-md p-8 h-min">
+          {/* <div className="w-full h-96 bg-gray-100 rounded-xl mt-4 flex items-center justify-center">
             <div className="text-center">
               <p className="text-blue-500">Upload Image</p>
               <p>Upload a cover image htmlFor your product.</p>
               <p>File Format jpeg, png Recommened Size 600x600 (1:1)</p>
             </div>
-          </div>
+          </div> */}
 
-          <p className="text-xl font-bold mt-8">Additional Images</p>
+          <p className="text-xl font-bold">Preview</p>
           <div className="flex flex-wrap justify-start mt-4 gap-4">
-            <div className="w-48 h-48 bg-gray-100 rounded"></div>
-            <div className="w-48 h-48 border-4 border-gray-100 border-dashed rounded flex items-center justify-center">
-              + Upload Images
+            {productImageFiles.length > 0 &&
+              productImageFiles.map((file) => (
+                <div
+                  className="w-48 h-48 bg-gray-100 rounded"
+                  key={file.name}
+                  // remove image if clicked
+                  onClick={() =>
+                    setProductImageFiles(
+                      productImageFiles.filter((f) => f.name !== file.name)
+                    )
+                  }
+                >
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt="product"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            <div className="relative w-48 h-48 border-4 border-gray-100 border-dashed rounded flex items-center justify-center">
+              <div className="">
+                <input
+                  type="file"
+                  multiple
+                  className="w-full h-full absolute top-0 left-0 opacity-0"
+                  onChange={(e) =>
+                    setProductImageFiles([
+                      ...productImageFiles,
+                      ...e.target.files,
+                    ])
+                  }
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setProductImageFiles([
+                      ...productImageFiles,
+                      ...e.dataTransfer.files,
+                    ]);
+                  }}
+                />
+
+                <div className="text-center">+ Upload Images</div>
+              </div>
             </div>
           </div>
         </div>

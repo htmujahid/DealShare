@@ -8,6 +8,13 @@ export async function addProduct(data) {
   });
 }
 
+export async function addProductImages(productId, data) {
+  return await fetcher(`/api/manufacturer/products/${productId}/images`, {
+    method: "POST",
+    body: data,
+  });
+}
+
 export async function updateProduct(productId, data) {
   return await fetcher(`/api/manufacturer/products/${productId}`, {
     method: "PUT",

@@ -337,3 +337,12 @@ export async function updateInventory(productId, inventory) {
     }
   );
 }
+
+export async function addProductImages(productId, images) {
+  return await db.collection("productMedias").insertOne({
+    productId,
+    mediaUrl: images,
+    createdAt: new Date(),
+    modifiedAt: new Date(),
+  });
+}
