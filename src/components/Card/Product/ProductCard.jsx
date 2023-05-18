@@ -16,22 +16,22 @@ function ProductCard({ product }) {
 
   return (
     <Link className="col-span-1" href={`/product/${product?._id}`}>
-      <div className="p-4 border border-primary-light rounded-xl col-span-4">
-        <div className="rounded-xl flex items-center ">
+      <div className="col-span-4 p-4 border border-primary-light rounded-xl">
+        <div className="flex items-center rounded-xl ">
           <img
             className="w-full h-48"
             src={product?.media?.mediaUrl[0] ?? ""}
           />
         </div>
         <div className="pt-4">
-          <h3 className="text h-7 text-lg overflow-hidden">{product?.name}</h3>
+          <h3 className="overflow-hidden text-lg text h-7">{product?.name}</h3>
           {/* <p className="text-sm pb-2 h-[63px] overflow-hidden">
             {product?.description}
           </p> */}
           <div className="pb-2">
             <p className="text-2xl font-bold">${product?.sellingPrice}</p>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             {showConfirmationModal && (
               <ConfirmationModal
                 numberOfItems={cartItems.length}
@@ -63,7 +63,7 @@ function ProductCard({ product }) {
   );
 }
 
-function ConfirmationModal({ numberOfItems, onClose }) {
+export function ConfirmationModal({ numberOfItems, onClose }) {
   return (
     <ModalContainer>
       <ModalHeader heading="Item added" onClose={onClose} />

@@ -3,7 +3,7 @@ import { DeleteConfirmationModal } from "@/components/Modal";
 import React, { useContext, useEffect, useState } from "react";
 
 function ProductSummaryCard({ product }) {
-  const [qty, setQty] = React.useState(1);
+  const [qty, setQty] = React.useState(product?.quantity ?? 1);
   const { cartItems, setCartItems } = useContext(CartContext);
   const [showDeleteConfrimation, setShowDeleteConfirmation] = useState(false);
   useEffect(() => {

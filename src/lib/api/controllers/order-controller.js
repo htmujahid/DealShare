@@ -26,9 +26,10 @@ export const addOrderPool = async (order) => {
         "address.city": order.invoice.billingInfo.town,
         "address.country": order.invoice.billingInfo.stateCountry,
         status: "in progress",
+        modifiedAt: new Date(),
       },
     };
     const options = { upsert: true };
-    await db.collection("orderPool").updateOne(query, update, options);
+    await db.collection("orderPools").updateOne(query, update, options);
   });
 };

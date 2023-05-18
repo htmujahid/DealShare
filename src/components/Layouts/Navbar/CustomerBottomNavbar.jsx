@@ -1,83 +1,34 @@
 import Link from "next/link";
 import React from "react";
 import { CustomerContainer } from "../Container";
+import { useProductCategories } from "@/lib/app/product";
 
 function CustomerBottomNavbar() {
-  const categories = [
-    {
-      name: "Electronics",
-      slung: "electronics",
-      subCategories: [
-        "Smartphones",
-        "Laptops",
-        "Tablets",
-        "TVs",
-        "Cameras",
-        "Headphones",
-        "Video Games",
-        "Wearable Tech",
-        "Accessories",
-      ],
-    },
-    {
-      name: "Clothing",
-      slung: "clothing",
-      subCategories: ["kid", "male", "female"],
-    },
-    {
-      name: "Shoes",
-      slung: "shoes",
-      subCategories: ["kid", "male", "female"],
-    },
-    {
-      name: "Health",
-      slung: "health",
-      subCategories: ["kid", "male", "female"],
-    },
-    {
-      name: "Home",
-      slung: "home",
-      subCategories: ["kid", "male", "female"],
-    },
-    {
-      name: "Sports",
-      slung: "sports",
-      subCategories: ["kid", "male", "female"],
-    },
-    {
-      name: "Garden",
-      slung: "garden",
-      subCategories: ["kid", "male", "female"],
-    },
-    {
-      name: "Games",
-      slung: "games",
-      subCategories: ["kid", "male", "female"],
-    },
-  ];
+  const { categories } = useProductCategories();
+
   return (
-    <div className="bg-black py-4">
+    <div className="py-4 bg-black">
       <CustomerContainer>
         <div className="flex justify-between">
-          {categories.map((category, index) => {
+          {categories?.slice(0, 8).map((category, index) => {
             return (
               <div
                 key={index}
-                className="flex flex-col items-center mx-4 relative"
+                className="relative flex flex-col items-center mx-4"
               >
                 <Link
-                  href={`/category/${category.slung}`}
-                  className="text-white font-semibold"
+                  href={`/category/${category.name}`}
+                  className="font-semibold text-white"
                 >
                   {category.name}
                 </Link>
-                {/* <div className="absolute top-10 left-0 w-full h-full">
+                {/* <div className="absolute left-0 w-full h-full top-10">
                                     {category.subCategories.map(
                                         (subCategory, index) => {
                                             return (
                                                 <div
                                                     key={index}
-                                                    className="text-black text-xs"
+                                                    className="text-xs text-black"
                                                 >
                                                     {subCategory}
                                                 </div>
