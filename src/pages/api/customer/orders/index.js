@@ -1,4 +1,4 @@
-import { getManufacturerOrders } from "@/lib/api/db";
+import { getCustomerOrders } from "@/lib/api/db";
 import {
   database,
   roleAuthorization,
@@ -9,12 +9,12 @@ import { createRouter } from "next-connect";
 
 const router = createRouter();
 
-router.use(database, tokenChecker, roleAuthorization(["manufacturer"]));
+router.use(database, tokenChecker, roleAuthorization(["customer"]));
 
 //get orders
 router.get(async (req, res) => {
   try {
-    const products = await getManufacturerOrders(req.user._id);
+    const products = await getCustomerOrders(req.user._id);
     return res.status(200).json(products);
   } catch (e) {
     return res.status(500).end();

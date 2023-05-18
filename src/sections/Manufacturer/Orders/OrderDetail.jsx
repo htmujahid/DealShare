@@ -1,4 +1,3 @@
-import { GrayButton, PrimaryButton } from "@/components/Buttons";
 import { Search } from "@/components/Form";
 import { PaginationCount } from "@/components/Pagination";
 import {
@@ -10,48 +9,66 @@ import {
   Thead,
   Tr,
 } from "@/components/Table";
-import { GeneralSummary, StatsSummary } from "@/components/Widgets";
+import { GeneralSummary } from "@/components/Widgets";
 import React from "react";
+import { useManufacturerOrderDetails } from "@/lib/app/order";
+import { useRouter } from "next/router";
 
 function OrderDetail() {
+  const router = useRouter();
+  const { orderDetails } = useManufacturerOrderDetails(router.query.orderId);
   return (
     <>
       <div>
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
             <h1 className="font-semibold text-gray-900 ">
-              Order Number #743648
+              Order Number #{router.query.orderId}
             </h1>
             <p>
-              Order date: <span className="font-semibold">2021-01-01</span>
+              Order date:{" "}
+              <span className="font-semibold">
+                {orderDetails &&
+                  new Date(orderDetails[0].createdAt).toLocaleDateString()}
+              </span>
             </p>
           </div>
           <div className="flex gap-4">
-            <PrimaryButton>Mark as Completed</PrimaryButton>
-            <GrayButton>Cancel</GrayButton>
+            {/*<PrimaryButton>Mark as Completed</PrimaryButton>*/}
+            {/*<GrayButton>Cancel</GrayButton>*/}
           </div>
         </div>
         <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
           <GeneralSummary
-            title="Jaine Doe"
-            subtitle="Customer Since 2021-01-01"
+            title="Customer Details"
+            subtitle={
+              orderDetails &&
+              orderDetails[0].invoice.billingInfo.firstName +
+                " " +
+                orderDetails[0].invoice.billingInfo.lastName
+            }
             value={[
-              { title: "Phone", value: "03126578123" },
-              { title: "Email", value: "jaine@email.com" },
+              {
+                title: "phone",
+                value:
+                  orderDetails &&
+                  orderDetails[0].invoice.billingInfo.phoneNumber,
+              },
+              {
+                title: "Email",
+                value:
+                  orderDetails && orderDetails[0].invoice.billingInfo.email,
+              },
             ]}
           />
           <GeneralSummary
             value={[
               {
                 title: "Home Address",
-                value: `
-                123, Street Name, City Name, State Name, Country Name
-              `,
+                value:
+                  orderDetails && orderDetails[0].invoice.billingInfo.address,
               },
             ]}
-          />
-          <GeneralSummary
-            value={[{ title: "Billing Address", value: "Master Card" }]}
           />
         </div>
       </div>
@@ -74,17 +91,15 @@ function OrderDetail() {
                       <Tr>
                         <Th scope="col"></Th>
                         <Th scope="col">Product Name</Th>
+                        <Th scope="col">Manufacturer Name</Th>
                         <Th scope="col">Price</Th>
                         <Th scope="col">Qty</Th>
                         <Th scope="col">Order Total</Th>
-                        <Th scope="col">Action</Th>
-                        <Th scope="col">Status </Th>
                       </Tr>
                     </Thead>
                     <Tbody className="bg-white divide-y divide-gray-200 -800">
-                      {Array(4)
-                        .fill(0)
-                        .map((_, index) => (
+                      {orderDetails &&
+                        orderDetails[0].products.map((product, index) => (
                           <Tr className="hover:bg-gray-100">
                             <Td className="w-4 p-4">
                               <div className="flex items-center">
@@ -104,17 +119,16 @@ function OrderDetail() {
                             </Td>
                             <Td>
                               <div className="text-base font-semibold text-gray-900 ">
-                                IPhone 13
+                                {product.name}
                               </div>
                               <div className="text-sm font-normal text-gray-500">
-                                Phone
+                                {product.category}
                               </div>
                             </Td>
-                            <Td>200</Td>
-                            <Td>3</Td>
-                            <Td>600</Td>
-                            <Td>mark as completed</Td>
-                            <Td>published</Td>
+                            <Td>{product.manufacturer.firstName}</Td>
+                            <Td>{product.price}</Td>
+                            <Td>{product.quantity}</Td>
+                            <Td>{product.price * product.quantity}</Td>
                           </Tr>
                         ))}
                     </Tbody>

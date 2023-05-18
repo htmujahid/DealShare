@@ -1,4 +1,4 @@
-import { Search } from "@/components/Form";
+import { Input, Search } from "@/components/Form";
 import { DeleteConfirmationModal } from "@/components/Modal";
 import { PaginationCount } from "@/components/Pagination";
 import {
@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import OrderUpdate from "./OrderUpdate";
 import { useManufacturerOrders } from "@/lib/app/order";
+import { completeOrder } from "@/lib/app/order/requests";
 
 function OrdersTable() {
   const { orders } = useManufacturerOrders();
@@ -42,10 +43,10 @@ function OrdersTable() {
                     <Thead className="bg-gray-100">
                       <Tr>
                         <Th scope="col"></Th>
-                        <Th scope="col">Customer Name</Th>
+                        <Th scope="col">Product Name</Th>
                         <Th scope="col">Order Date</Th>
                         <Th scope="col">Order Total</Th>
-                        <Th scope="col">Action</Th>
+                        <Th scope="col">Price</Th>
                         <Th scope="col">Status</Th>
                         <Th scope="col"></Th>
                       </Tr>
@@ -71,31 +72,27 @@ function OrdersTable() {
                           </Td>
                           <Td>
                             <div className="text-base font-semibold text-gray-900 ">
-                              {order?.customer?.name}
+                              {order?.product?.name}
                             </div>
                             <div className="text-sm font-normal text-gray-500">
-                              johndoe@email.com
+                              {order?.product?.category}
                             </div>
                           </Td>
-                          <Td>02-03-2023</Td>
-                          <Td>4000</Td>
-                          <Td>mark as completed</Td>
-                          <Td>published</Td>
+                          <Td>{new Date().toLocaleDateString()}</Td>
+                          <Td>{order.totalQuantity}</Td>
+                          <Td>{order.product.sellingPrice}</Td>
+                          <Td>{order.status}</Td>
 
                           <Td className="p-4 space-x-2 whitespace-nowrap ">
-                            <button
-                              href="#"
-                              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                              onClick={() => setShowUpdateModal(true)}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              onClick={() => setShowDeleteModal(true)}
-                              className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                            >
-                              Remove
-                            </button>
+                            <Input
+                              type="checkbox"
+                              checked={order.status === "completed"}
+                              onChange={() =>
+                                completeOrder(order._id, {
+                                  status: order.status,
+                                })
+                              }
+                            />
                           </Td>
                         </Tr>
                       ))}

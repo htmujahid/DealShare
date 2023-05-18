@@ -1,4 +1,4 @@
-import { getManufacturerOrders } from "@/lib/api/db";
+import { completeOrder, inProgressOrder } from "@/lib/api/db";
 import {
   database,
   roleAuthorization,
@@ -11,11 +11,17 @@ const router = createRouter();
 
 router.use(database, tokenChecker, roleAuthorization(["manufacturer"]));
 
-//get orders
-router.get(async (req, res) => {
+router.patch(async (req, res) => {
+  const { status } = JSON.parse(req.body);
   try {
-    const products = await getManufacturerOrders(req.user._id);
-    return res.status(200).json(products);
+    let order;
+    if (status === "in progress") {
+      order = await completeOrder(req.query.orderId);
+    } else if (status === "completed") {
+      order = await inProgressOrder(req.query.orderId);
+    }
+
+    return res.status(200).json(order);
   } catch (e) {
     return res.status(500).end();
   }

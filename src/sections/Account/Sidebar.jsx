@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import AccountDetails from "./AccountDetails";
 import Address from "./Address";
-import Invoices from "./Invoices";
 import Orders from "./Orders";
 import ResetPassword from "./ResetPassword";
+import Products from "./Products";
 
 export const settingOptions = {
   DETAILS: {
@@ -19,9 +19,9 @@ export const settingOptions = {
     component: <Orders />,
   },
   INVOICES: {
-    id: "invoices",
-    text: "Invoices",
-    component: <Invoices />,
+    id: "products",
+    text: "Products",
+    component: <Products />,
   },
   ADDRESS: {
     id: "address",

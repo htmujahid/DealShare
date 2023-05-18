@@ -12,7 +12,7 @@ function ProductDetailedCard({ product }) {
       <div className="h-[280px] w-[280px] bg-neutral">
         <img
           className="h-full"
-          src={product?.media?.mediaURL[0] ?? ""}
+          src={product?.media?.mediaUrl[0] ?? ""}
           alt="abc"
         />
       </div>

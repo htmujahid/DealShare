@@ -19,7 +19,7 @@ function ProductDetailedDescription({ product }) {
       <div className="grid grid-cols-2 gap-8 my-16">
         <div className="w-[569px] h-[436px] bg-gray-100 rounded-xl sticky top-8">
           <img
-            src={product?.media?.mediaURL[0] ?? ""}
+            src={product?.media?.mediaUrl[0] ?? ""}
             className="w-full rounded-xl"
             alt="abc"
           />

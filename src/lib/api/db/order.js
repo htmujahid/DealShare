@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { db } from "../middleware";
 import { dbProjectionUsers } from "@/lib/api/db/users";
+import { tr } from "date-fns/locale";
 
 export async function addOrder(order) {
   const { insertedId } = await db.collection("orders").insertOne(order);
@@ -112,6 +113,31 @@ export async function getOrderByManufacturer(manufacturerId) {
     .toArray();
 }
 
+export async function getCustomerOrders(customerId) {
+  return await db
+    .collection("orders")
+    .aggregate([
+      {
+        $match: {
+          userId: new ObjectId(customerId),
+        },
+      },
+      {
+        $lookup: {
+          from: "invoices",
+
+          localField: "_id",
+          foreignField: "orderId",
+          as: "invoice",
+        },
+      },
+      {
+        $unwind: "$invoice",
+      },
+    ])
+    .toArray();
+}
+
 export async function getOrder(id) {
   const order = await db
     .collection("orders")
@@ -136,6 +162,36 @@ export async function getOrder(id) {
     .toArray();
 
   return order[0];
+}
+
+export async function getManufacturerOrders(manufacturerId) {
+  return await db
+    .collection("orderPool")
+    .aggregate([
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      {
+        $unwind: "$product",
+      },
+      {
+        $match: {
+          "product.manufacturerId": new ObjectId(manufacturerId),
+          // totalQuantity: { $gte: "product.poolThreshold" },
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+    ])
+    .toArray();
 }
 
 export async function getOrderDetails(id) {
@@ -293,4 +349,34 @@ export async function getManufacturerOrderDetails(id, manufacturerId) {
       };
     })
   );
+}
+
+export async function completeOrder(id) {
+  const { matchedCount } = await db.collection("orderPool").updateOne(
+    {
+      _id: new ObjectId(id),
+    },
+    { $set: { status: "completed" } }
+  );
+  return matchedCount;
+}
+
+export async function cancelOrder(id) {
+  const { matchedCount } = await db.collection("orderPool").updateOne(
+    {
+      _id: new ObjectId(id),
+    },
+    { $set: { status: "cancel" } }
+  );
+  return matchedCount;
+}
+
+export async function inProgressOrder(id) {
+  const { matchedCount } = await db.collection("orderPool").updateOne(
+    {
+      _id: new ObjectId(id),
+    },
+    { $set: { status: "in progress" } }
+  );
+  return matchedCount;
 }
