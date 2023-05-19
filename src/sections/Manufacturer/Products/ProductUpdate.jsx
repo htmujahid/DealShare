@@ -18,7 +18,6 @@ function ProductUpdate() {
   const [product, setProduct] = React.useState(null);
 
   useEffect(() => {
-    console.log(data);
     if (data) {
       setProduct(data);
     }

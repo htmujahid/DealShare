@@ -20,7 +20,6 @@ export default function index() {
             const res = await uploadToCloudinary(file[i]);
             urls.push(res);
           }
-          console.log(urls);
         }}
         type="submit"
       >

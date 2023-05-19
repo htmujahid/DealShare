@@ -30,7 +30,6 @@ function ProductNew() {
         const productImage = await uploadToCloudinary(productImageFiles[i]);
         productImages.push(productImage);
       }
-      console.log(productImages);
       await addProductImages(result.insertedId, productImages);
     } catch (error) {
       console.log(error);
@@ -67,6 +66,7 @@ function ProductNew() {
                 onChange={(e) =>
                   setProduct({ ...product, name: e.target.value })
                 }
+                required
               />
               <Select
                 placeholder="Select Category"
@@ -86,6 +86,7 @@ function ProductNew() {
                 onChange={(e) =>
                   setProduct({ ...product, category: e.target.value })
                 }
+                required
               />
               <div className="flex mt-4 gap-3 w-full">
                 <Input
@@ -97,6 +98,7 @@ function ProductNew() {
                   onChange={(e) =>
                     setProduct({ ...product, sellingPrice: e.target.value })
                   }
+                  required
                 />
                 <Input
                   placeholder="Cost Price"
@@ -107,6 +109,7 @@ function ProductNew() {
                   onChange={(e) =>
                     setProduct({ ...product, costPrice: e.target.value })
                   }
+                  required
                 />
               </div>
               <div className="grid grid-cols-2 mt-4 gap-3 w-full">
@@ -120,6 +123,7 @@ function ProductNew() {
                   onChange={(e) =>
                     setProduct({ ...product, quantity: e.target.value })
                   }
+                  required
                 />
                 <Select
                   placeholder="Select Status"
@@ -133,6 +137,7 @@ function ProductNew() {
                   onChange={(e) =>
                     setProduct({ ...product, status: e.target.value })
                   }
+                  required
                 />
               </div>
             </div>
@@ -146,6 +151,7 @@ function ProductNew() {
                 onChange={(e) =>
                   setProduct({ ...product, poolThreshold: e.target.value })
                 }
+                required
               />
               <Textarea
                 classname="w-full h-44 mt-4"
@@ -154,6 +160,7 @@ function ProductNew() {
                 onChange={(e) =>
                   setProduct({ ...product, description: e.target.value })
                 }
+                required
               ></Textarea>
             </div>
           </div>
@@ -185,6 +192,7 @@ function ProductNew() {
                     src={URL.createObjectURL(file)}
                     alt="product"
                     className="w-full h-full object-cover"
+                    required
                   />
                 </div>
               ))}
