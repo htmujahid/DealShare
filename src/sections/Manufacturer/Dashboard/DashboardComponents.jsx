@@ -13,9 +13,15 @@ import {
   StatsSummary,
   ProductsByArea,
 } from "@/components/Widgets";
+import {
+  useGroupedProducts,
+  useProductsByManufacturer,
+} from "@/lib/app/product";
 import React from "react";
 
 function DashboardComponents() {
+  const { products } = useProductsByManufacturer();
+
   return (
     <>
       <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
@@ -36,8 +42,8 @@ function DashboardComponents() {
         <StatsSummary
           icon={<ProductIcon />}
           value={[
-            { title: "All Products", value: 350 },
-            { title: "Active Products", value: 325 },
+            { title: "All Products", value: products?.length },
+            { title: "Active Products", value: products?.length },
           ]}
         />
 

@@ -9,7 +9,6 @@ function Access({ children, waitContent = null, access }) {
   const user = session?.user;
   const { user: currentUser, loading: currentUserLoading } = useCurrentUser();
 
-  console.log(currentUser);
   //If there are no access defined htmlFor the page, allow the page to be rendered
   if (access == undefined) {
     return children;
