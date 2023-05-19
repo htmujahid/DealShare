@@ -65,7 +65,7 @@ function ProductCard({ product }) {
 
 export function ConfirmationModal({ numberOfItems, onClose }) {
   return (
-    <ModalContainer>
+    <ModalContainer maxWidth={425}>
       <ModalHeader heading="Item added" onClose={onClose} />
       <ModalBody>
         <div className="flex">
