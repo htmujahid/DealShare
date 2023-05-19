@@ -1,5 +1,6 @@
 import { CustomerLayout } from "@/components/Layouts";
 import { userRoles } from "@/lib/app/user";
+// import { userRoles } from "@/lib/app/user";
 import { CustomerAccount } from "@/sections/Account";
 
 function Home() {
@@ -10,6 +11,10 @@ function Home() {
   );
 }
 
-Home.routeProtector = [userRoles.CUSTOMER];
+Home.routeProtector = [
+  userRoles.CUSTOMER,
+  userRoles.MANUFACTURER,
+  userRoles.ADMIN,
+];
 
 export default Home;

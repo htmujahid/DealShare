@@ -1,10 +1,30 @@
 import { CustomerContainer } from "@/components/Layouts/Container";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SettingsSection from "./SettingSection";
 import Sidebar from "./Sidebar";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { userRoles } from "@/lib/app/user";
 
 function CustomerAccount() {
   const [selectedSetting, setSelectedSetting] = useState("DETAILS");
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session.user) {
+      switch (session.user.role) {
+        case userRoles.CUSTOMER:
+          break;
+        case userRoles.MANUFACTURER:
+          router.replace("/manufacturer");
+          break;
+        case userRoles.ADMIN:
+          router.replace("/admin");
+      }
+    }
+  }, [session]);
+
   return (
     <CustomerContainer>
       <div className="my-16">
@@ -15,7 +35,7 @@ function CustomerAccount() {
             selectedSetting={selectedSetting}
             onOptionClick={(setting) => setSelectedSetting(setting)}
           />
-          <div className="border-r h-full hidden sm:block"></div>
+          <div className="hidden h-full border-r sm:block"></div>
           <SettingsSection settingType={selectedSetting} />
         </div>
       </div>

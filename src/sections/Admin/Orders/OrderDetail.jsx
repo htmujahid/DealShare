@@ -12,28 +12,26 @@ import {
 } from "@/components/Table";
 import { GeneralSummary, StatsSummary } from "@/components/Widgets";
 import React from "react";
-import {useOrderDetails} from "@/lib/app/order";
-import {useRouter} from "next/router";
+import { useOrderDetails } from "@/lib/app/order";
+import { useRouter } from "next/router";
 
 function OrderDetail() {
-  const router = useRouter()
-  const {
-    orderDetails
-  } = useOrderDetails(
-    router.query.orderId
-  )
+  const router = useRouter();
+  const { orderDetails } = useOrderDetails(router.query.orderId);
   return (
     <>
       <div>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="flex gap-4">
             <h1 className="font-semibold text-gray-900 ">
               Order Number #{router.query.orderId}
             </h1>
             <p>
-              Order date: <span className="font-semibold">
-                {orderDetails && new Date(orderDetails[0].createdAt).toLocaleDateString()}
-            </span>
+              Order date:{" "}
+              <span className="font-semibold">
+                {orderDetails &&
+                  new Date(orderDetails[0].createdAt).toLocaleDateString()}
+              </span>
             </p>
           </div>
           <div className="flex gap-4">
@@ -41,20 +39,35 @@ function OrderDetail() {
             {/*<GrayButton>Cancel</GrayButton>*/}
           </div>
         </div>
-        <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-2">
           <GeneralSummary
             title="Customer Details"
-            subtitle={orderDetails && orderDetails[0].invoice.billingInfo.firstName + " " + orderDetails[0].invoice.billingInfo.lastName}
+            subtitle={
+              orderDetails &&
+              orderDetails[0].invoice.billingInfo.firstName +
+                " " +
+                orderDetails[0].invoice.billingInfo.lastName
+            }
             value={[
-              { title: "phone", value: orderDetails && orderDetails[0].invoice.billingInfo.phoneNumber },
-              { title: "Email", value: orderDetails && orderDetails[0].invoice.billingInfo.email },
+              {
+                title: "Phone",
+                value:
+                  orderDetails &&
+                  orderDetails[0].invoice.billingInfo.phoneNumber,
+              },
+              {
+                title: "Email",
+                value:
+                  orderDetails && orderDetails[0].invoice.billingInfo.email,
+              },
             ]}
           />
           <GeneralSummary
             value={[
               {
                 title: "Home Address",
-                value: orderDetails && orderDetails[0].invoice.billingInfo.address
+                value:
+                  orderDetails && orderDetails[0].invoice.billingInfo.address,
               },
             ]}
           />
@@ -62,13 +75,13 @@ function OrderDetail() {
       </div>
       <div className="mt-4">
         <TableContainer>
-          <div className="p-4 bg-white block flex flex-col lg:flex-row items-center justify-center gap-2 md:justify-between border-b border-gray-200 -800">
+          <div className="flex flex-col items-center justify-center block gap-2 p-4 bg-white border-b border-gray-200 lg:flex-row md:justify-between -800">
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">
               All Orders
             </h1>
-            <form className="sm:pr-3" action="#" method="GET">
+            {/* <form className="sm:pr-3" action="#" method="GET">
               <Search>Search For Products</Search>
-            </form>
+            </form> */}
           </div>
           <div className="flex flex-col">
             <div className="overflow-x-auto">
@@ -87,8 +100,7 @@ function OrderDetail() {
                     </Thead>
                     <Tbody className="bg-white divide-y divide-gray-200 -800">
                       {orderDetails &&
-                        orderDetails[0].products
-                        .map((product, index) => (
+                        orderDetails[0].products.map((product, index) => (
                           <Tr className="hover:bg-gray-100">
                             <Td className="w-4 p-4">
                               <div className="flex items-center">
@@ -114,18 +126,10 @@ function OrderDetail() {
                                 {product.category}
                               </div>
                             </Td>
-                            <Td>
-                              {product.manufacturer.firstName}
-                            </Td>
-                            <Td>
-                              {product.price}
-                            </Td>
-                            <Td>
-                              {product.quantity}
-                            </Td>
-                            <Td>
-                              {product.price * product.quantity}
-                            </Td>
+                            <Td>{product.manufacturer.firstName}</Td>
+                            <Td>{product.price}</Td>
+                            <Td>{product.quantity}</Td>
+                            <Td>{product.price * product.quantity}</Td>
                           </Tr>
                         ))}
                     </Tbody>
@@ -134,7 +138,7 @@ function OrderDetail() {
               </div>
             </div>
           </div>
-          <PaginationCount />
+          {/* <PaginationCount /> */}
         </TableContainer>
       </div>
     </>
