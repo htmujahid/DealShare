@@ -17,10 +17,10 @@ function ProductDetailedDescription({ product }) {
   return (
     <CustomerContainer>
       <div className="grid grid-cols-2 gap-8 my-16">
-        <div className="w-[569px] h-[436px] bg-gray-100 rounded-xl sticky top-8">
+        <div className="w-[569px] h-[436px] bg-white flex items-center justify-center rounded-xl sticky top-8">
           <img
             src={product?.media?.mediaUrl[0] ?? ""}
-            className="w-full rounded-xl"
+            className="h-full rounded-xl"
             alt="abc"
           />
         </div>

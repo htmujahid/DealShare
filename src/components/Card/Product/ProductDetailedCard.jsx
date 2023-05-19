@@ -8,10 +8,10 @@ function ProductDetailedCard({ product }) {
   const { feedbacks } = useProductFeedbacks(product?._id);
 
   return (
-    <div className="border border-primary-light rounded-xl overflow-hidden w-[869px] h-[280] flex gap-8">
-      <div className="h-[280px] w-[280px] bg-neutral">
+    <div className="border border-primary-light rounded-xl overflow-hidden w-[869px]  flex items-center gap-8">
+      <div className="flex justify-center items-center h-[280px] w-[280px] bg-white">
         <img
-          className="h-full"
+          className="block h-full"
           src={product?.media?.mediaUrl[0] ?? ""}
           alt="abc"
         />

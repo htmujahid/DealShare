@@ -17,9 +17,9 @@ function ProductCard({ product }) {
   return (
     <Link className="col-span-1" href={`/product/${product?._id}`}>
       <div className="col-span-4 p-4 border border-primary-light rounded-xl">
-        <div className="flex items-center rounded-xl ">
+        <div className="flex items-center justify-center rounded-xl max-h-[150px] max-h-[150px]">
           <img
-            className="w-full h-48"
+            className="block min-h-[150px] max-h-[150px]"
             src={product?.media?.mediaUrl[0] ?? ""}
           />
         </div>
