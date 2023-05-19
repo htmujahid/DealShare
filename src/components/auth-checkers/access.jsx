@@ -1,4 +1,5 @@
 import { useCurrentUser, userRoles } from "@/lib/app/user";
+import Page403 from "@/sections/Common/Page403";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -36,7 +37,7 @@ function Access({ children, waitContent = null, access }) {
     return children;
   }
 
-  return waitContent;
+  return <Page403 />;
 }
 
 export default Access;
