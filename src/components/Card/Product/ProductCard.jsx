@@ -58,9 +58,9 @@ function ProductCard({ product }) {
             }
             setShowConfirmationModal(true);
           }}
-          className="relative w-full flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
+          className="relative w-full flex items-center justify-center rounded-md border border-transparent bg-primary px-8 py-2 text-sm font-medium text-gray-900 hover:bg-opacity-90"
         >
-          Add to bag<span className="sr-only">, {product?.name}</span>
+          Add to cart<span className="sr-only">, {product?.name}</span>
         </button>
       </div>
     </Link>
