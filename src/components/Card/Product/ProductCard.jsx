@@ -24,7 +24,7 @@ function ProductCard({ product }) {
             className="h-full w-full object-cover object-center"
           />
         </div>
-        <div className="relative mt-4">
+        <div className="relative mt-4 h-10 overflow-hidden">
           <h3 className="text-sm font-medium text-gray-900">{product?.name}</h3>
           <p className="mt-1 text-sm text-gray-500">{product?.category}</p>
         </div>
@@ -62,54 +62,6 @@ function ProductCard({ product }) {
         >
           Add to bag<span className="sr-only">, {product?.name}</span>
         </button>
-      </div>
-    </Link>
-  );
-
-  return (
-    <Link className="col-span-1" href={`/product/${product?._id}`}>
-      <div className="col-span-4 p-4 border border-primary-light rounded-xl">
-        <div className="flex items-center justify-center rounded-xl max-h-[150px] max-h-[150px]">
-          <img
-            className="block min-h-[150px] max-h-[150px]"
-            src={product?.media?.mediaUrl[0] ?? ""}
-          />
-        </div>
-        <div className="pt-4">
-          <h3 className="overflow-hidden text-lg text h-7">{product?.name}</h3>
-          {/* <p className="text-sm pb-2 h-[63px] overflow-hidden">
-            {product?.description}
-          </p> */}
-          <div className="pb-2">
-            <p className="text-2xl font-bold">${product?.sellingPrice}</p>
-          </div>
-          <div className="flex items-center justify-between">
-            {showConfirmationModal && (
-              <ConfirmationModal
-                numberOfItems={cartItems.length}
-                onClose={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setShowConfirmationModal(false);
-                }}
-              />
-            )}
-            <Button
-              variant="primary"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                if (!isItemAlreadyIncluded(cartItems, product)) {
-                  setCartItems((prev) => [...prev, product]);
-                }
-                setShowConfirmationModal(true);
-              }}
-              className="w-full"
-            >
-              Add to Cart
-            </Button>
-          </div>
-        </div>
       </div>
     </Link>
   );
