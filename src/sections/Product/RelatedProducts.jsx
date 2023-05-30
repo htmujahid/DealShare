@@ -7,7 +7,7 @@ function RelatedProducts({ products }) {
     products?.length > 0 && (
       <CustomerContainer>
         <h1 className="text-4xl font-bold pb-8">Related Products</h1>
-        <div className="flex justify-start gap-4 pb-16">
+        <div className="grid grid-cols-5 justify-start gap-4 pb-16">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
